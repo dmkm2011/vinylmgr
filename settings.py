@@ -13,7 +13,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'vinylmgr',                      # Or path to database file if using sqlite3.
-        'USER': 'vinyl-django',                      # Not used with sqlite3.
+        'USER': 'vinyldjango',                      # Not used with sqlite3.
         'PASSWORD': 'abc123',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
@@ -119,6 +119,9 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'usermgr',
+    'personallibrary',
+    'reflibrary'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -143,3 +146,7 @@ LOGGING = {
         },
     }
 }
+
+# Added by Vu Pham, as needed foe UserProfile
+# more info: https://docs.djangoproject.com/en/dev/topics/auth/#storing-additional-information-about-users
+AUTH_PROFILE_MODULE = 'usermgr.UserProfile'
