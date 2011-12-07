@@ -116,7 +116,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'usermgr',
@@ -147,6 +147,6 @@ LOGGING = {
     }
 }
 
-# Added by Vu Pham, as needed foe UserProfile
+# Added by Vu Pham, as needed for UserProfile
 # more info: https://docs.djangoproject.com/en/dev/topics/auth/#storing-additional-information-about-users
 AUTH_PROFILE_MODULE = 'usermgr.UserProfile'

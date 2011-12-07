@@ -1,5 +1,4 @@
 from django.db import models
-#from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
 #import usermgr.models
@@ -9,68 +8,103 @@ from django.db.models.signals import post_save
 # Reflibrary   (Lyon)
 
 class Medium(models.Model):
-	Medium_Name = models.CharField(max_length=50)
-	Medium_Description = models.TextField(max_length=50)
-	#Medium_ID = models.unique
+    name = models.CharField('Medium name', max_length=50)
+    description = models.TextField('Medium description', max_length=50)
+    
+    def __unicode__(self):
+        return self.name
 
 
 class Artist(models.Model):
-	Artist_Name = models.CharField(max_length=50)
-	Artist_Homepage = models.CharField(max_length=50)
-	Artist_Bio = models.CharField(max_length=50)	
-	
+    name = models.CharField('Artist name', max_length=100)
+    homepage = models.URLField()
+    bio = models.TextField()
+    
+    def __unicode__(self):
+        return self.name
+        
 class Role(models.Model):
-	Role_Name = models.CharField(max_length=50)
-	#Role_ID = models.unique	
+    name = models.CharField('Role name', max_length=50)
+    
+    def __unicode__(self):
+        return self.name
 
-class Record_Category(models.Model):
-	Category_Name = models.CharField(max_length=50)
-	Category_Description = models.CharField(max_length=50)
-	Category_NumberOfDisc = models.IntegerField()
-	#Category_ID = models.unique
-	
+class RecordCategory(models.Model):
+    name = models.CharField('Category name', max_length=100)
+    description = models.CharField('Category description', max_length=100)
+    number_of_disc = models.IntegerField('Number of discs of each record in this category')
+    
+    def __unicode__(self):
+        return self.name
+    
 class Genre(models.Model):
-    name = models.CharField('Genre Name',max_length=50)	
+    name = models.CharField('Genre Name', max_length=50)
+    
+    def __unicode__(self):
+        return self.name
 
 class Style(models.Model):
-    name = models.CharField('Style Name',max_length=50)
-    genretype = models.ForeignKey('Genre')
+    name = models.CharField('Style Name', max_length=50)
+    
+    genre_type = models.ForeignKey(Genre)
+    
+    def __unicode__(self):
+        return self.name
+    
 
 class Rythm(models.Model):
-    name = models.CharField('Rythm Name',max_length=50)
+    name = models.CharField('Rythm Name', max_length=50)
     
+    def __unicode__(self):
+        return self.name
+
 class SoundTrack(models.Model):
-    name = models.CharField('Track Title',max_length=50)
-    artist= models.CharField('Artist Name',max_length=50)
+    name = models.CharField('Track Title', max_length=50)
+    #artist = models.CharField('Artist Name',max_length=50)
     #trackfile= models.FileField(upload_to=None)
-    release_Date= models.DateField('Track Release Date')
+    release_date= models.DateField('Track Release Date')
     duration = models.DateTimeField('Track Duration')
-    originalversion=models.URLField()
-    lable= models.CharField('Track Lable',max_length=50)  
-    styleType = models.ForeignKey('Style')
-    rythnType = models.ForeignKey('Rythm')
+    original_version = models.URLField()
+    label = models.CharField('Track Lable',max_length=100)  
+    
+    style_type = models.ForeignKey(Style)
+    rythm_type = models.ForeignKey(Rythm)
+    artists = models.ManyToManyField(Artist, through='SoundTrackFeaturing')
+    
+    def __unicode__(self):
+        return self.name
 
-
-	
+# the intermediary model between SoundTrack - Artist
+# many-to-many relationship.
 class SoundTrackFeaturing(models.Model):
-	role = models.ForeignKey(Role)
-	soundtrack = models.ForeignKey(Record_Category)
-	artist = models.ForeignKey(Artist)
-	#SountTrackFeaturing_ID = models.unique
-	
-
+    role = models.ForeignKey(Role)
+    
+    soundtrack = models.ForeignKey(SoundTrack)
+    artist = models.ForeignKey(Artist)
+    
+    def __unicode__(self):
+        return self.role
 
 class Record(models.Model):
-	R_Title = models.CharField(max_length=50)
-	R_MatrixNumber = models.IntegerField()
-	R_CoverArt = models.CharField(max_length=50)
-	record_category = models.ForeignKey(Record_Category)
-	medium = models.ForeignKey(Medium)
-	soundtrack = models.ManyToManyField(SoundTrack)
-	#Medium_ID = models.unique
- 
+    title = models.CharField('Record title', max_length=50)
+    matrix_number = models.CharField('Record\'s matrix number', max_length=50)
+    cover_art = models.ImageField(upload_to='define/a/path/to/store/avatars')
+    
+    category = models.ForeignKey(RecordCategory)
+    medium = models.ForeignKey(Medium)
+    soundtrack = models.ManyToManyField(SoundTrack)
+    artists = models.ManyToManyField(Artist, through='RecordFeaturing')
+    
+    def __unicode__(self):
+        return self.title
+
+# the intermediary model between Record - Artist
+# many-to-many relationship.
 class RecordFeaturing(models.Model):
-	record = models.ForeignKey(Record)
-	role = models.ForeignKey(Role)
-	artist = models.ForeignKey(Artist)
-	#RecordFeaturing_ID = models.unique
+    role = models.ForeignKey(Role)
+    
+    record = models.ForeignKey(Record)
+    artist = models.ForeignKey(Artist)
+    
+    def __unicode__(self):
+        return self.role
