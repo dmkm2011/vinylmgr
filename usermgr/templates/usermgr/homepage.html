@@ -1,0 +1,48 @@
+{%extends "base.html"%}
+
+{%block title%}Homepage{%endblock%}
+
+{%block content%}
+<!-- content-wrap -->
+<div class="content-wrap">
+
+    <!-- main -->
+    <section id="main">
+
+        <div class="intro-box">
+           <h1>Welcome.</h1>
+
+           <p class="intro">Hello there. We are DMKM team in Lyon and Nantes. Our website is Vinyl management and we use Django web application.</p>
+
+           <p class="intro">This project is so horrible. It likes the professor gives us the manual for using a hammer and the assignment is to build a house, fully furnished.</p>
+
+        </div>
+
+        <div class="slider-wrapper">
+
+            <div id="slider" class="nivoSlider"> 
+                <img src="{{ STATIC_PREFIX }}slide1.png" width="383" height="198" alt="" />
+                <img src="{{ STATIC_PREFIX }}slide2.png" width="383" height="198" alt="" />
+                <img src="{{ STATIC_PREFIX }}slide3.png" width="383" height="198" alt="" title="#htmlcaption"/>
+            </div>
+            <div id="htmlcaption" class="nivo-html-caption">
+                <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
+            </div>
+        </div>
+
+        <div class="row no-bottom-margin">
+
+            <section class="col">
+                <h2>DMKM</h2>
+
+                <p>This is a project for ADB course in DMKM program.</p>
+            </section>
+            <section class="col mid">
+                <h2>Deadline</h2>
+
+                <p>The deadline is near..</p>
+            </section>
+        </div>
+      </section>
+
+{%endblock%}

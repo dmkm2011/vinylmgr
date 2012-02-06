@@ -1,0 +1,61 @@
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+<!DOCTYPE html>
+<style type="{{ STATIC_PREFIX }}text/css">
+.auto-style1 {
+	color: #FFFFFF;
+}
+</style>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta charset="utf-8"/>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{%block title%}Chameleon{%endblock%}</title>
+    <link rel="stylesheet" href="{{ STATIC_PREFIX }}style.css" type="{{ STATIC_PREFIX }}text/css" media="screen" />
+    <link rel="stylesheet" href="{{ STATIC_PREFIX }}nivo-slider.css" type="{{ STATIC_PREFIX }}text/css" />
+    <link rel="stylesheet" href="{{ STATIC_PREFIX }}jquery.fancybox-1.3.4.css" type="{{ STATIC_PREFIX }}text/css" />
+
+    <script src="{{ STATIC_PREFIX }}jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{{ STATIC_PREFIX }}jquery-1.6.1.min.js"><\/script>')</script>
+
+    <script src="{{ STATIC_PREFIX }}jquery.smoothscroll.js"></script>
+    <script src="{{ STATIC_PREFIX }}jquery.nivo.slider.pack.js"></script>
+    <script src="{{ STATIC_PREFIX }}jquery.easing-1.3.pack.js"></script>
+    <script src="{{ STATIC_PREFIX }}jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="{{ STATIC_PREFIX }}init.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <hgroup>
+            <h1>Chameleon</h1>
+            <blockquote>Listen Music With Us</blockquote>
+        </hgroup>
+        <nav>
+            <ul>
+                <li><a href="{% url usermgr.views.homepage %}">Home</a></li>
+                <li><a href="{% url vinylmgr.usermgr.views.signup %}">Become Member</a></li>
+                <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+{%block content%}
+
+{%endblock%}	
+<footer>
+    <div class="footer-content">
+        <ul class="footer-menu">
+            <li><a href="{% url usermgr.views.homepage %}">Home</a></li>
+            <li><a href="{% url vinylmgr.usermgr.views.signup %}">Become Member</a></li>
+            <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
+        </ul>
+        <p class="footer-text">Copyright 2012 DMKM Cameleon team. &nbsp;&nbsp;&nbsp;</a></p>
+    </div>
+</footer>
+
+</body>
+</html>
