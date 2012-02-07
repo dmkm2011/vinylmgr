@@ -14,9 +14,13 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'vinylmgr',                      # Or path to database file if using sqlite3.
         'USER': 'vinyldjango',                      # Not used with sqlite3.
-        'PASSWORD': 'abc123',                  # Not used with sqlite3.
+        'PASSWORD': 'abc123',
+        #'NAME': 'postgres',                      # my PC
+        #'USER': 'postgres',                      #
+        #'PASSWORD': '8034363',                  # 
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
+        #'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -72,6 +76,11 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+"C:/Python27/Scripts/vinylmgr/templates/usermgr/static/css",
+"C:/Python27/Scripts/vinylmgr/templates/usermgr/static/images",
+"C:/Python27/Scripts/vinylmgr/templates/usermgr/static/images/slides",
+"C:/Python27/Scripts/vinylmgr/templates/usermgr/static/js",
+"C:/Python27/Scripts/vinylmgr/templates/usermgr/static/PSDs",
 )
 
 # List of finder classes that know how to find static files in
@@ -83,7 +92,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'dv)(9@#^-^!!b)e5z12+jia^yjtu*shp#!@$!dh^jzdam)d*_+'
+SECRET_KEY = 'x$7voh3@rb7xw5(p)8!kjj&9^-ybw^k@@ejc5pg@tv7vk_6g-i'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -96,6 +105,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfResponseMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
@@ -106,19 +116,22 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    '/Python27/Scripts/vinylmgr/templates' #starting from C:/
 )
 
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'django.contrib.admin',
+    #'vinylmgr.usermgr'
     'usermgr',
     'personallibrary',
     'reflibrary'
@@ -150,3 +163,6 @@ LOGGING = {
 # Added by Vu Pham, as needed for UserProfile
 # more info: https://docs.djangoproject.com/en/dev/topics/auth/#storing-additional-information-about-users
 AUTH_PROFILE_MODULE = 'usermgr.UserProfile'
+
+# URL of the login page.
+LOGIN_URL = '/login/'

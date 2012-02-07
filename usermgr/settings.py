@@ -12,11 +12,15 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'postgres',                      # Or path to database file if using sqlite3.
-        'USER': 'postgres',                      # Not used with sqlite3.
-        'PASSWORD': '8034363',                  # Not used with sqlite3.
+        'NAME': 'vinylmgr',                      # Or path to database file if using sqlite3.
+        'USER': 'vinyldjango',                      # Not used with sqlite3.
+        'PASSWORD': 'abc123',
+        #'NAME': 'postgres',                      # my PC
+        #'USER': 'postgres',                      #
+        #'PASSWORD': '8034363',                  # 
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
+        #'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -127,7 +131,10 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'django.contrib.admin',
-    'vinylmgr.usermgr'
+    #'vinylmgr.usermgr'
+    'usermgr',
+    'personallibrary',
+    'reflibrary'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -152,6 +159,10 @@ LOGGING = {
         },
     }
 }
+
+# Added by Vu Pham, as needed for UserProfile
+# more info: https://docs.djangoproject.com/en/dev/topics/auth/#storing-additional-information-about-users
+AUTH_PROFILE_MODULE = 'usermgr.UserProfile'
 
 # URL of the login page.
 LOGIN_URL = '/login/'
