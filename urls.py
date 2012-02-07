@@ -16,17 +16,20 @@ urlpatterns = patterns('',
     url(r'^logout$', 'vinylmgr.views.index', name="auth_logout"),
     url(r'^login$', 'vinylmgr.views.index', name="auth_login"),
     url(r'^register$', 'vinylmgr.views.index', name="registration_register"),
-    url(r'^ack$', 'vinylmgr.views.index', name="acknowledgement"),
     url(r'^about/$', 'django.views.generic.simple.direct_to_template', 
         {'template': 'misc/about.html'}, name="about"),
     url(r'^help/$', 'django.views.generic.simple.direct_to_template', 
         {'template': 'misc/help.html'}, name="help"),
+		##############################################
+		# Acknowledgement
+		url(r'^acknowledgement/$', 'django.views.generic.simple.direct_to_template', 
+        {'template': 'misc/acknowledgement.html'}, name="acknowledgement"),
+		##############################################
     # url(r'^vinylmgr/', include('vinylmgr.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', 
         {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
