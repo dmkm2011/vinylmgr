@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+
+{% comment %}
+{% load humanize %}
+{% load events_tags %} 
+{% endcomment %}
+
+{% block title %}Browse - {{ block.super }}{% endblock %}
+
+{% block main_content %}
+
+<section id="main">
+    <div class="intro-box">
+        <h1>Welcome.</h1>
+
+        <p class="intro">Hello there. We are VinylManager. We are fucking here to do the fucking project
+        of a fucking subject given by a ..... guy.</p>
+        <p class="intro">(You know what I meant!)</p>
+    </div>
+
+    <div class="slider-wrapper">
+
+        <div id="slider" class="nivoSlider">
+            <img src="{{ MEDIA_URL }}images/slides/slide1.png" width="287" height="150" alt="" />
+            <img src="{{ MEDIA_URL }}images/slides/slide2.png" width="287" height="150" alt="" />
+            <img src="{{ MEDIA_URL }}images/slides/slide3.png" width="287" height="150" alt="" title="#htmlcaption"/>
+        </div>
+
+        <div id="htmlcaption" class="nivo-html-caption">
+            <strong>An</strong> example of a <em>HTML</em> caption with <a href="#">a link</a>.
+        </div>
+    </div>
+    
+    <div class="row no-bottom-margin">
+    </div>
+
+</section>
+
+
+<section id="portfolio">
+
+    <h1>Latest Vinyl records</h1>
+    
+{% if records %}
+    <ul class="folio-list clearfix">
+        {% autopaginate records %}
+        {% for record in records %}
+            <li class="folio-thumb">
+                <div class="thumb">
+                    <a class="lightbox" href="{{ record.cover_art.url }}" title="{{ record.title }}" >
+                        <img src="{{ record.cover_art.url }}" width="190px" height="125px" alt="" />
+                    </a>
+                </div>
+                <h3 class="entry-title">{{ record.title }}</h3>
+            </li>
+        {% endfor %}
+        {% paginate %}
+    </ul>
+{% else %}
+    <p class="intro">There are no records listed.</p>
+{% endif %}
+</section>
+{% endblock %}

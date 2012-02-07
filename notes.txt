@@ -1,0 +1,7 @@
+1. Populate database:
+ - Music genres and styles: http://musicgenreslist.com/
+ - Rhythm: http://w3.iac.net/~moonweb/Drumming/RhythmList.html
+ - Record Category: LP (album or compilation) and Double LP, EP, Double EP, Maxi single, Single
+ - ˜Roles: for SoundTrack: artist, invited artist (featuring), music players, 
+    audio engineer, lyrics writer, music writer... For Record: Artist, Producer...
+ - Conditions: http://www.cdandlp.com/aide/grading.cfm?lng=2t    

@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--[if IE 7 ]>    <html class="ie7 oldie"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8 oldie"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
+
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta charset="utf-8"/>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <title>{% block title %}Vinyl Record{% endblock %}</title>
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}css/style.css" />
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/nivo-slider.css" />
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/jquery.fancybox-1.3.4.css" />
+
+    <!--[if lt IE 9]>
+	    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{{ MEDIA_URL }}js/jquery-1.6.1.min.js"><\/script>')</script>
+
+    <script src="{{ MEDIA_URL }}js/jquery.smoothscroll.js"></script>
+    <script src="{{ MEDIA_URL }}js/jquery.nivo.slider.pack.js"></script>
+    <script src="{{ MEDIA_URL }}js/jquery.easing-1.3.pack.js"></script>
+    <script src="{{ MEDIA_URL }}js/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="{{ MEDIA_URL }}js/init.js"></script>
+    
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+    
+{# header-wrap #}
+<div id="header-wrap">
+    <header>
+
+        <hgroup>
+            <h1><a href="{% url index %}">Vinyl Record</a></h1>
+            <h3>Just Another Vinyl Record Management System</h3>
+        </hgroup>
+
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url personallib %}">Personal Library</a></span>
+                    <li><a href="{% url auth_logout %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url auth_login %}">Login</a></li>
+                    <li><a href="{% url registration_register %}">Register</a></li>
+                {% endif %}
+                <li><a href="{% url about %}">About Us</a></li>
+                <li><a href="{% url acknowledgement %}">Acknowledgement</a></li>
+            </ul>
+        </nav>
+        
+    {% block messages %}
+        {% if messages %}
+            <ul class="messages grid_12">
+                {% for message in messages %}
+                <li><span>{{ message }}</span></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endblock %}
+    
+    </header>
+</div>
+
+{# content-wrap #}
+<div class="content-wrap">
+    {% block main_content %}{% endblock %}
+</div>
+           
+<footer>
+    <div class="footer-content">
+        <ul class="footer-menu">
+            <li><a href="{% url about %}">About Us</a></li>
+            <li><a href="{% url acknowledgement %}">Acknowledgement</a></li>
+            <li><a href="{% url help %}">Help</a></li>
+        </ul>
+
+        <p class="footer-text">&copy; 2012 DMKM Nantes. &nbsp;&nbsp;&nbsp; Designed by <a href="http://www.styleshout.com/">Styleshout</a></p>
+    </div>
+
+</footer>
+
+{% block extra_body %}{% endblock %}
+
+</body>
+</html>
+
+    {% comment %}
+    <div class="container_12">
+        <div id="nav_bg">
+            <div class="grid_4"><p id="logo"><a href="{% url index %}">StartTheDark</a></p></div>
+            <div class="grid_8">
+                <ul id="nav">
+                    <li><a href="{% url ev_tonight %}">Tonight</a></li>
+                    <li><a href="{% url ev_archive %}">Archive</a></li>
+                    <li><span class="subnav_everyone">Everyone</span>
+                        <ul class="subnav_everyone">
+                            <li><a href="{% url ev_everyone_tonight %}">Tonight</a></li>
+                            <li><a href="{% url ev_everyone_archive %}">Archive</a></li>
+                        </ul>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li><span class="subnav_friends">Friends</span>
+                            <ul class="subnav_friends">
+                                <li><a href="{% url sg_find_add %}">Find and Add Friends</a></li>
+                                <li><a href="{% url user_list %}">Latest Users</a></li>
+                                <li><a href="{% url sg_followers user.username %}">People You Follow</a></li>
+                                <li><a href="{% url sg_following user.username %}">People Following You</a></li>
+                                <li><a href="{% url sg_mutual user.username %}">Mutual Friends</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{% url settings %}">Settings</a></li>
+                        <li><a href="{% url auth_logout %}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url auth_login %}">Login</a></li>
+                        <li><a href="{% url registration_register %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        {% block messages %}
+            {% if messages %}
+                <ul class="messages grid_12">
+                    {% for message in messages %}
+                    <li><span>{{ message }}</span></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endblock %}
+        <div id="content" class="grid_12">
+            {% block main_content %}{% endblock %}
+        </div>
+        <div class="clear"></div>
+    </div>
+    
+    <ul id="footer">
+        <li><a href="{% url about %}">About Us</a></li>
+        <li><a href="{% url opensource %}">Open Source</a></li>
+        <li><a href="{% url help %}">Help</a></li>
+        <li><span>&copy; 2008 StartTheDark</span></li>
+    </ul>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.2.6.min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.form.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.livequery.min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/global.js"></script>
+    <!--There's no way this would even possibly work in IE6, but we have to pretend to try.-->
+    <!--[if lt IE 7]>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/unitpngfix.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1959803-9");
+    pageTracker._trackPageview();
+    </script>
+    {% block extra_body %}{% endblock %}
+</body>
+</html>
+{% endcomment %}

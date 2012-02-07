@@ -52,8 +52,8 @@ class Style(models.Model):
         return self.name
     
 
-class Rythm(models.Model):
-    name = models.CharField('Rythm Name', max_length=50)
+class Rhythm(models.Model):
+    name = models.CharField('Rhythm Name', max_length=50)
     
     def __unicode__(self):
         return self.name
@@ -63,12 +63,12 @@ class SoundTrack(models.Model):
     #artist = models.CharField('Artist Name',max_length=50)
     #trackfile= models.FileField(upload_to=None)
     release_date= models.DateField('Track Release Date')
-    duration = models.DateTimeField('Track Duration')
+    duration = models.CharField('Track Duration', max_length=50)
     original_version = models.URLField()
-    label = models.CharField('Track Lable',max_length=100)  
+    label = models.CharField('Track Label',max_length=100)  
     
     style_type = models.ForeignKey(Style)
-    rythm_type = models.ForeignKey(Rythm)
+    rhythm_type = models.ForeignKey(Rhythm)
     artists = models.ManyToManyField(Artist, through='SoundTrackFeaturing')
     
     def __unicode__(self):
@@ -83,12 +83,12 @@ class SoundTrackFeaturing(models.Model):
     artist = models.ForeignKey(Artist)
     
     def __unicode__(self):
-        return self.role
+        return self.role.__unicode__()
 
 class Record(models.Model):
     title = models.CharField('Record title', max_length=50)
     matrix_number = models.CharField('Record\'s matrix number', max_length=50)
-    cover_art = models.ImageField(upload_to='define/a/path/to/store/avatars')
+    cover_art = models.ImageField(upload_to='cover_arts')
     
     category = models.ForeignKey(RecordCategory)
     medium = models.ForeignKey(Medium)
@@ -107,4 +107,4 @@ class RecordFeaturing(models.Model):
     artist = models.ForeignKey(Artist)
     
     def __unicode__(self):
-        return self.role
+        return self.role.__unicode__()
