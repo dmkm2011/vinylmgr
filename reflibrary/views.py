@@ -24,3 +24,14 @@ def browse(request):
         context,
         context_instance = RequestContext(request)
     )
+
+def record(request, record_id):
+    """
+    Renders a single record
+    """
+    record = get_object_or_404(Record, id=record_id)
+    return render_to_response(
+        'reflibrary/record.html',
+        {'record': record},
+        context_instance = RequestContext(request)
+    )

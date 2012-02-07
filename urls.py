@@ -10,6 +10,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'vinylmgr.reflibrary.views.browse', name="index"),
+    url(r'^r/', include('vinylmgr.reflibrary.urls')),
     
     # these URLs are not working, just reservations for base.html template
     url(r'^personal$', 'vinylmgr.views.index', name="personallib"),
@@ -20,7 +21,7 @@ urlpatterns = patterns('',
         {'template': 'misc/about.html'}, name="about"),
     url(r'^help/$', 'django.views.generic.simple.direct_to_template', 
         {'template': 'misc/help.html'}, name="help"),
-    # url(r'^vinylmgr/', include('vinylmgr.foo.urls')),
+    
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

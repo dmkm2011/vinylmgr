@@ -48,7 +48,7 @@
         {% for record in records %}
             <li class="folio-thumb">
                 <div class="thumb">
-                    <a class="lightbox" href="{{ record.cover_art.url }}" title="{{ record.title }}" >
+                    <a href="{% url r_record record.id %}" title="View record {{ record.title }}" >
                         <img src="{{ record.cover_art.url }}" width="190px" height="125px" alt="" />
                     </a>
                 </div>
