@@ -1,6 +1,6 @@
 from django.db import models
 from reflibrary.models import *
-from usermgr.usermgr.models import *
+from usermgr.models import *
 
 class Rating(models.Model):
     RATING_CHOICES=(
