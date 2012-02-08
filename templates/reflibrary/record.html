@@ -4,12 +4,26 @@
 
 {% block main_content %}
 
-<section id="main">
-    <div class="intro-box">
+<section id="record">
+    <div class="record">
         <h1>{{ record.title }}</h1>
-
-        
-
+        <div class="coverart">
+            <a class="lightbox" href="{{ record.cover_art.url }}" title="{{ record.title }} Cover art" >
+                <img src="{{ record.cover_art.url }}" width="300px" height="200px" alt="" />
+            </a>
+        </div>
+        <div class="info">
+            <p><strong>{{ record.title }}</strong></p>
+            <p>
+                Matrix number: {{ record.matrix_number }}<br />
+                Format: {{ record.medium }}. {{ record.category }}<br />
+                {% for f in featuring %}
+                    {{ f.role }}: {{ f.artist.name }}<br />
+                {% endfor %}
+            </p>
+        </div>
+        <div class="row no-bottom-margin">
+        </div>
 </section>
 
 
