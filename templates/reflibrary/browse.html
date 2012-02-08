@@ -47,12 +47,14 @@
         {% autopaginate records %}
         {% for record in records %}
             <li class="folio-thumb">
-                <div class="thumb">
-                    <a href="{% url r_record record.id %}" title="View record {{ record.title }}" >
+                <a href="{% url r_record record.id %}" title="View record {{ record.title }}" >
+                    <div class="thumb">
                         <img src="{{ record.cover_art.url }}" width="190px" height="125px" alt="" />
-                    </a>
-                </div>
-                <h3 class="entry-title">{{ record.title }}</h3>
+                    </div>
+                    <h3 class="entry-title">
+                        {{ record.title }}
+                    </h3>
+                </a>
             </li>
         {% endfor %}
         {% paginate %}
