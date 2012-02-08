@@ -1,0 +1,43 @@
+{%extends "base.html"%}
+{%load pagination_tags%}
+
+{%block title %} Create playlist - {{block.super}}{%endblock%}
+
+{%block main_content%}
+
+
+
+<div class="content-wrap">
+
+    <section id="main">
+       
+      </section>
+<form action="" method="post">
+<br/>
+<br/>
+{% for field in form %}
+  <p>
+    {{ field.label_tag }}: {{ field }}
+    {{ field.errors }}
+  </p>
+  {% endfor %}
+
+   <p>   <input type="submit" value="View" />   
+		<input type="submit" value="Edit" /></p>
+   <br/>
+   <br/>
+   
+              <nav>
+			<ul>
+                <li><a href="{% url playlist_create %}">Create Playlist</a></li>
+				<li><a href="{% url playlist_viewedit %}">View/Edit playlist</a></li>
+                <li><a href="{% url playlist_share %}">Share playlist</a></li>
+                
+                
+            </ul>      
+			</nav>
+ 
+</form>
+
+
+{%endblock%}
