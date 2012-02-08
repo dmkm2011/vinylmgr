@@ -36,6 +36,9 @@ class RecordCategory(models.Model):
     
     def __unicode__(self):
         return self.name
+        
+    class Meta(object):
+        verbose_name_plural = "Record Categories"
     
 class Genre(models.Model):
     name = models.CharField('Genre Name', max_length=50)

@@ -10,6 +10,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'vinylmgr.reflibrary.views.browse', name="index"),
+    url(r'^r/', include('vinylmgr.reflibrary.urls')),
     
     # these URLs are not working, just reservations for base.html template
     url(r'^personal$', 'vinylmgr.views.index', name="personallib"),
