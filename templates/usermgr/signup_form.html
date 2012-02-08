@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+
+
+{% comment %}
+{% load humanize %}
+{% load events_tags %} 
+{% endcomment %}
+
+{% block title %}Signup - {{block.super}}{% endblock %}
+
+{% block main_content %}
+
+{% if form.errors %}
+<p>Authentication error</p>
+{% endif %}
+
+<div class="content-wrap">
+
+    <section id="main">
+       
+      </section>
+<form action="" method="post">
+  {% for field in form %}
+  <p>
+    {{ field.label_tag }}: {{ field }}
+    {{ field.errors }}
+  </p>
+  {% endfor %}
+  <p><input type="submit" value="Signup" /></p>
+</form>
+
+{% endblock %}
