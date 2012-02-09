@@ -31,9 +31,11 @@ def record(request, record_id):
     """
     r = get_object_or_404(Record, id=record_id)
     featuring = RecordFeaturing.objects.filter(record = r)
+    tracks = r.soundtrack.all()
     return render_to_response(
         'reflibrary/record.html',
         {'record': r,
-         'featuring': featuring},
+         'featuring': featuring,
+         'tracks': tracks},
         context_instance = RequestContext(request)
     )

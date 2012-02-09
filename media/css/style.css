@@ -538,20 +538,42 @@ section#record h1 {
 }
 section#record .coverart{
     float:left;
-    width:300px;
+    width:250px;
     min-height: 200px;
 }
 section#record .info {
     float: right;
     position: relative;
-    /*margin-top: 30px;*/
     margin-bottom: 13px;
-    width: 607px;
+    width: 657px;
     height: 170px;
 }
 section#record .row .col h2 {
     margin-top: 15px;
     margin-bottom: 10px;
+}
+
+/* -----------------------------------------
+    Record_soundtrack list
+------------------------------------------ */
+section#record-soundtracks {
+    width: 940px;
+    background: none;
+    /* margin-top: 90px; */
+}
+section#record-soundtracks table{
+    /*cellspacing: 0;
+    cellpadding: 0;*/
+    width: 100%;
+    border: none;
+
+}
+section#record-soundtracks table tr#header{
+    background-color: #C8B165;
+    font-size: 14px;
+}
+section#record-soundtracks table tr{
+    font-size: 12px;
 }
 /* ------------------------------------------------
     About

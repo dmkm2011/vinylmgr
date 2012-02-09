@@ -9,7 +9,7 @@
         <h1>{{ record.title }}</h1>
         <div class="coverart">
             <a class="lightbox" href="{{ record.cover_art.url }}" title="{{ record.title }} Cover art" >
-                <img src="{{ record.cover_art.url }}" width="300px" height="200px" alt="" />
+                <img src="{{ record.cover_art.url }}" width="230px" height="150px" alt="" />
             </a>
         </div>
         <div class="info">
@@ -18,12 +18,62 @@
                 Matrix number: {{ record.matrix_number }}<br />
                 Format: {{ record.medium }}. {{ record.category }}<br />
                 {% for f in featuring %}
-                    {{ f.role }}: {{ f.artist.name }}<br />
+                    {{ f.role }}:
+                    
+                    {% if f.artist.homepage %}
+                        <a href="{{ f.artist.homepage }}" target="_blank" title="{{ f.artist.bio }}" >
+                        {{ f.artist.name }}
+                        </a>
+                    {% else %}
+                        {{ f.artist.name }}
+                    {% endif %}
+                    
+                    <br />
                 {% endfor %}
             </p>
         </div>
         <div class="row no-bottom-margin">
         </div>
+</section>
+
+<section id="record-soundtracks">
+    <div class="record-soundtracks">
+        {% if tracks %}
+        <table>
+            <tr id="header">
+                <td>Title</td>
+                <td>Artists</td>
+                <td>Style</td>
+                <td>Rhythm</td>
+                <td>Origin</td>
+                <td>Label</td>
+                <td>Release</td>
+                <td>Duration</td>
+            </tr>
+            {% for s in tracks %}
+            <tr>
+                <td>{{ s.name }}</td>
+                {# <td>{% if s.artists.all() %} {{ s.artists.all()[0].name }} {% endif %}</td> #}
+                <td>Tao</td>
+                <td>{{ s.style_type.name }}</td>
+                <td>{{ s.rhythm_type.name }}</td>
+                <td>
+                    {% if s.original_version %}
+                    <a href="{{ s.original_version }}" target="_blank" title="{{ s.original_version }}">
+                    Link
+                    </a>
+                    {% endif %}
+                </td>
+                <td>{{ s.label }}</td>
+                <td>{{ s.release_date }}</td>
+                <td>{{ s.duration }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p class="info">There are no soundtracks in this record.</p>
+        {% endif %}
+    </div>
 </section>
 
 
