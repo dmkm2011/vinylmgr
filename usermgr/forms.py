@@ -74,3 +74,17 @@ class UserCreationForm(forms.ModelForm):
         send_mail("Confirmation link sent on %s" % site_name,
                   t.render(Context(c)), 'DMKMvinylmgr@gmail.com', [user.email])
         return user
+
+        
+class ProfileEditForm(forms.ModelForm):
+    firstname = forms.CharField(label="First name", widget=forms.TextInput)
+    lastname = forms.CharField(label="Last name", widget=forms.TextInput)
+    class Meta:
+        model = User
+        fields = ("firstname","lastname","email",)
+    def save(self):
+        U = super(ProfileEditForm, self).save(commit=False)
+        U.first_name = self.cleaned_data['firstname']
+        U.last_name = self.cleaned_data['lastname']
+        U.is_active = False
+        U.save()

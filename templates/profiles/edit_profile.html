@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+
+
+{% comment %}
+{% load humanize %}
+{% load events_tags %} 
+{% endcomment %}
+
+{% block title %}Login - {{block.super}}{% endblock %}
+
+{% block main_content %}
+
+<div class="content-wrap">
+
+    <section id="main">
+       
+      </section>
+<p>Edit profile for <b>{{user}}</b></p>
+<form method="POST" action="">
+    {% for field in form %}
+  <p>
+    {{ field.label_tag }}: {{ field }}
+    {{ field.errors }}
+  </p>
+  {% endfor %}
+    <input type="submit" name="submit" value="Update" id="submit">
+</form>
+
+{% endblock %}

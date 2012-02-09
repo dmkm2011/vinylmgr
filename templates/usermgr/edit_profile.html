@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+
+
+{% comment %}
+{% load humanize %}
+{% load events_tags %} 
+{% endcomment %}
+
+{% block title %}Profile_edit - {{user.username}}{% endblock %}
+
+{% block main_content %}
+<br/>
+<br/>
+<br/>
+
+<b>Edit contact information for {{user}}</b>
+<form method="POST" action="">
+    {{ form }}
+    <input type="submit" name="submit" value="Update" id="submit">
+</form>
+
+{% endblock %}

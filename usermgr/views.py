@@ -4,7 +4,7 @@ from django.contrib.auth.views import *
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse, Http404
-from vinylmgr.usermgr.forms import UserCreationForm
+from vinylmgr.usermgr.forms import UserCreationForm, ProfileEditForm
 from vinylmgr.usermgr.models import *
 from django.contrib.auth.tokens import default_token_generator
 from django.core.urlresolvers import reverse
@@ -13,7 +13,9 @@ from django.conf import settings
 from django.utils.http import urlquote, base36_to_int
 from django.contrib.sites.models import Site
 from django.views.decorators.csrf import csrf_protect
-    
+from profiles import views as profile_views
+from usermgr.forms import ProfileEditForm 
+ 
 @csrf_protect
 def signup(request, template_name='usermgr/signup.html', 
            email_template_name='usermgr/password_signup_email.html',
@@ -81,7 +83,27 @@ def password_reset(request):
 	else:
 		return HttpResponseRedirect("/user/")
     
-@login_required
-def profile(request, template_name='usermgr/profile.html'):
-    user_profile = request.user.get_profile()
-    return render_to_response(template_name, {'User': user_profile})
+#@login_required    
+#def profile(request, username=None):
+#    """
+#    Renders information about a single user's profile.  This includes
+#    information about who follows them, who they follow, mutual followers, the
+#    latest events created, and whether the currently logged in user is a friend
+#    of the user to render.
+#    """
+#    user = request.user.get_profile()
+#    context = {
+#        'User': user,
+#    }
+#    return render_to_response(
+#        'usermgr/profile.html',
+#        context,
+#        context_instance = RequestContext(request)
+#    )
+        
+#def profile_edit(request, template_name='usermgr/edit_profile.html', profile_edit_form=ProfileEditForm,):
+#        form = profile_edit_form(request.POST)
+#        if form.is_valid():
+#           form.save()
+#    return profile_views.edit_profile(request, form_class=ProfileEditForm)
+#        return render_to_response(template_name, {'form': form,}, context_instance=RequestContext(request))
