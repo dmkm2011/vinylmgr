@@ -81,10 +81,11 @@ class ProfileEditForm(forms.ModelForm):
     lastname = forms.CharField(label="Last name", widget=forms.TextInput)
     class Meta:
         model = User
-        fields = ("firstname","lastname","email",)
-    def save(self):
+        fields = ("username","firstname","lastname","email",)
+    def edit(self):
         U = super(ProfileEditForm, self).save(commit=False)
         U.first_name = self.cleaned_data['firstname']
         U.last_name = self.cleaned_data['lastname']
         U.is_active = False
         U.save()
+        

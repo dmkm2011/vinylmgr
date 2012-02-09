@@ -14,9 +14,14 @@
 <br/>
 <br/>
 
-<b>Edit contact information for {{user}}</b>
+<p>Edit profile for <b>{{user}}</b></p>
 <form method="POST" action="">
-    {{ form }}
+    {% for field in form %}
+  <p>
+    {{ field.label_tag }}: {{ field }}
+    {{ field.errors }}
+  </p>
+  {% endfor %}
     <input type="submit" name="submit" value="Update" id="submit">
 </form>
 

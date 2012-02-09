@@ -1,5 +1,6 @@
 # decoupled from project vinylmgr/urls.py
 from django.conf.urls.defaults import patterns, include, url
+from vinylmgr.usermgr.forms import ProfileEditForm
 #from django.contrib.auth.views import *
 #from vinylmgr.usermgr.views import *
 
@@ -19,7 +20,6 @@ urlpatterns = patterns('',
     url(r'^signup/done/$','vinylmgr.usermgr.views.signup_done',{'template_name': 'usermgr/signup_done.html'}),
     url(r'^signup/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$','vinylmgr.usermgr.views.signup_confirm'),
     url(r'^signup/complete/$','vinylmgr.usermgr.views.signup_complete', {'template_name': 'usermgr/signup_complete.html'}),
-#    url(r'^accounts/profile/$','vinylmgr.usermgr.views.profile', name="profile"),
-#    url(r'^accounts/profile/edit$','vinylmgr.usermgr.views.profile_edit', name="profile_edit"),
-#    url(r'^accounts/profile/edit$','profiles.views.edit_profile',{'form_class': ProfileEditForm}, name="profile_edit"),
+    url(r'^profile/$','vinylmgr.usermgr.views.profile', name="profile"),
+    url(r'^profile/edit$','vinylmgr.usermgr.views.profile_edit',{'form_class': ProfileEditForm}, name="profile_edit"),
 )

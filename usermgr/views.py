@@ -83,27 +83,54 @@ def password_reset(request):
 	else:
 		return HttpResponseRedirect("/user/")
     
-#@login_required    
-#def profile(request, username=None):
-#    """
-#    Renders information about a single user's profile.  This includes
-#    information about who follows them, who they follow, mutual followers, the
-#    latest events created, and whether the currently logged in user is a friend
-#    of the user to render.
-#    """
-#    user = request.user.get_profile()
-#    context = {
-#        'User': user,
-#    }
-#    return render_to_response(
-#        'usermgr/profile.html',
-#        context,
-#        context_instance = RequestContext(request)
-#    )
-        
-#def profile_edit(request, template_name='usermgr/edit_profile.html', profile_edit_form=ProfileEditForm,):
-#        form = profile_edit_form(request.POST)
-#        if form.is_valid():
-#           form.save()
+@login_required    
+def profile(request, username=None):
+    """
+    Renders information about a single user's profile.  This includes
+    information about who follows them, who they follow, mutual followers, the
+    latest events created, and whether the currently logged in user is a friend
+    of the user to render.
+    """
+    user = request.user.get_profile()
+    context = {
+        'User': user,
+    }
+    return render_to_response(
+        'usermgr/profile.html',
+        context,
+        context_instance = RequestContext(request)
+    )
+    
+def profile_edit(request, form_class=None, success_url=None, template_name='usermgr/edit_profile.html', extra_context=None):
+    try:
+        profile_obj = request.user.get_profile()
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('registration_register'))
+    #if success_url is None:
+    #    success_url = reverse('profile',kwargs={ 'username': request.user.username })
+    success_url='/u/profile/'
+    if form_class is None:
+        form_class = ProfileEditForm
+    if request.method == 'POST':
+        form = form_class(data=request.POST, files=request.FILES, instance=profile_obj)
+        if form.is_valid():
+            form.save()
+    #        return HttpResponseRedirect(success_url)
+    else:
+        form = form_class(instance=profile_obj)
+    
+    if extra_context is None:
+        extra_context = {}
+    context = RequestContext(request)
+    for key, value in extra_context.items():
+        context[key] = callable(value) and value() or value
+    
+    return render_to_response(template_name,
+                              { 'form': form,
+                                'profile': profile_obj, },
+                              context_instance=context)
+profile_edit = login_required(profile_edit)
+
+
 #    return profile_views.edit_profile(request, form_class=ProfileEditForm)
 #        return render_to_response(template_name, {'form': form,}, context_instance=RequestContext(request))

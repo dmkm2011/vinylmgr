@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'pagination',
+    'profiles',
     'usermgr',
     'personallibrary',
     'reflibrary'
@@ -173,3 +174,4 @@ AUTH_PROFILE_MODULE = 'usermgr.UserProfile'
 
 # URL of the login page.
 LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/u/profile/'
