@@ -53,9 +53,7 @@
             {% for s in tracks %}
             <tr id="{% cycle 'even' 'odd' %}">
                 <td>{{ s.name }}</td>
-                {# <td>{% if s.artists.all() %} {{ s.artists.all()[0].name }} {% endif %}</td> #}
-                {# <td>Tao</td> #}
-                <td>{{ s.artist.name }} </td>
+                <td>{% if s.artist %} {{ s.artist.name }} {% endif %}</td>
                 <td>{{ s.style_type.name }}</td>
                 <td>{{ s.rhythm_type.name }}</td>
                 <td>

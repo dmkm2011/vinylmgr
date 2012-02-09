@@ -13,8 +13,8 @@ from django.conf import settings
 from django.utils.http import urlquote, base36_to_int
 from django.contrib.sites.models import Site
 from django.views.decorators.csrf import csrf_protect
-from profiles import views as profile_views
-from usermgr.forms import ProfileEditForm 
+#from profiles import views as profile_views
+#from usermgr.forms import ProfileEditForm 
  
 @csrf_protect
 def signup(request, template_name='usermgr/signup.html', 
