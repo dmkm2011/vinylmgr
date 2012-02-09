@@ -37,7 +37,7 @@
 </section>
 
 <section id="record-soundtracks">
-    <div class="record-soundtracks">
+    <div>
         {% if tracks %}
         <table>
             <tr id="header">
@@ -51,10 +51,11 @@
                 <td>Duration</td>
             </tr>
             {% for s in tracks %}
-            <tr>
+            <tr id="{% cycle 'even' 'odd' %}">
                 <td>{{ s.name }}</td>
                 {# <td>{% if s.artists.all() %} {{ s.artists.all()[0].name }} {% endif %}</td> #}
-                <td>Tao</td>
+                {# <td>Tao</td> #}
+                <td>{{ s.artist.name }} </td>
                 <td>{{ s.style_type.name }}</td>
                 <td>{{ s.rhythm_type.name }}</td>
                 <td>
@@ -76,5 +77,26 @@
     </div>
 </section>
 
+{% if recommends %}
+<section id="record-recommends">
+    <h1>Records you might like</h1>
+    <p>Similar records from our store that you might also like</p>
+    
+    <ul class="folio-list clearfix">
+        {% for r in recommends %}
+            <li class="folio-thumb">
+                <a href="{% url r_record r.id %}" title="View record {{ r.title }}" >
+                    <div class="thumb">
+                        <img src="{{ r.cover_art.url }}" width="190px" height="125px" alt="" />
+                    </div>
+                    <h3 class="entry-title">
+                        {{ r.title }}
+                    </h3>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
 
 {% endblock %}

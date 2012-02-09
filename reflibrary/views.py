@@ -1,7 +1,7 @@
 from django.utils.translation import ugettext as _
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from reflibrary.models import Record, RecordFeaturing
+from reflibrary.models import Record, RecordFeaturing, SoundTrackFeaturing
 
 def browse(request):
     """
@@ -32,10 +32,18 @@ def record(request, record_id):
     r = get_object_or_404(Record, id=record_id)
     featuring = RecordFeaturing.objects.filter(record = r)
     tracks = r.soundtrack.all()
+    for s in tracks:
+        l = SoundTrackFeaturing.objects.filter(soundtrack = s)
+        if len(l) > 0:
+            s.artist = l[0].artist
+        else:
+            s.artist = None
+    recommends = Record.objects.all()[:4]
     return render_to_response(
         'reflibrary/record.html',
         {'record': r,
          'featuring': featuring,
-         'tracks': tracks},
+         'tracks': tracks,
+         'recommends': recommends},
         context_instance = RequestContext(request)
     )

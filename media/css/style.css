@@ -216,7 +216,7 @@ header {
     position: relative;
     padding: 0 0 25px 0;
     /* padding: 125px 0 25px 0;
-    background: url(../images/section-sep.png) repeat-x left 25px; */
+    background: url(../images/section-sep.png) repeat-x left 25px;*/
 }
 .content-wrap section section {
     background: none;
@@ -533,20 +533,20 @@ section#record {
     margin-top: 90px;
 }
 section#record h1 {
-    margin-top: 10px;
-    margin-bottom: 15px;
+    margin-top: 0px;
+    margin-bottom: 10px;
 }
 section#record .coverart{
     float:left;
     width:250px;
-    min-height: 200px;
+    min-height: 150px;
 }
 section#record .info {
     float: right;
     position: relative;
     margin-bottom: 13px;
     width: 657px;
-    height: 170px;
+    height: 150px;
 }
 section#record .row .col h2 {
     margin-top: 15px;
@@ -559,21 +559,74 @@ section#record .row .col h2 {
 section#record-soundtracks {
     width: 940px;
     background: none;
-    /* margin-top: 90px; */
 }
 section#record-soundtracks table{
-    /*cellspacing: 0;
-    cellpadding: 0;*/
     width: 100%;
     border: none;
 
 }
 section#record-soundtracks table tr#header{
-    background-color: #C8B165;
+    background-color: #996600;
     font-size: 14px;
+    text-shadow: 0px 0px 0;
+    font-weight: bold;
+    color: #EEEEEE;
 }
-section#record-soundtracks table tr{
+section#record-soundtracks table tr#even{
     font-size: 12px;
+    background-color: #CCCCCC;
+    text-shadow: 0px 0px 0;
+}
+section#record-soundtracks table tr#odd{
+    font-size: 12px;
+    background-color: #999999;
+    text-shadow: 0px 0px 0;
+}
+
+/* -----------------------------------------
+    Record recommends
+------------------------------------------ */
+section#record-recommends {
+    width: 940px;
+    background: none;
+    margin-top: 40px;
+}
+section#record-recommends h1 {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 28px;
+}
+
+section#record-recommends ul.folio-list {
+    margin: 0px 0;
+    padding: 0;
+    width: 970px;
+    list-style: none;
+}
+section#record-recommends ul.folio-list li {
+    float: left;
+    margin-right: 25px;
+    margin-bottom: 10px;
+    margin-top: 0px;
+    width: 210px;
+    height: 172px;
+    max-height: 170px;
+}
+section#record-recommends ul.folio-list li .thumb {
+    margin: 0 0 5px 0;
+    padding: 0;
+    background: url(../images/thumb-frame.png) no-repeat;
+    width: 210px;
+    height: 150px;
+}
+section#record-recommends ul.folio-list li .thumb img {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+section#record-recommends ul.folio-list li h3.entry-title {
+    font-size: 16px;
+    line-height: 25px;
+    margin-left: 36px;
 }
 /* ------------------------------------------------
     About
