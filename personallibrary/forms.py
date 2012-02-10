@@ -1,10 +1,82 @@
 from django.contrib.sites.models import Site
+from vinylmgr.personallibrary.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import int_to_base36
 from django.template import Context, loader
 from django import forms
 from django.core.mail import send_mail
+
+class create_form(forms.ModelForm):
+	#playlistname = forms.CharField(label="Playlist name")
+	#playlistdiscription = forms.CharField(label="Discription")		
+	
+	class Meta:
+		model = Playlist
+		
+	def save(self, commit=True, domain_override=None,             
+             use_https=False, token_generator=default_token_generator):
+		Playlist = super(create_form, self).save(commit=False)
+		Playlist.is_active = False
+		Playlist.save()	
+
+
+
+class viewedit_form(forms.ModelForm):
+
+	class Meta:
+		model = Playlist
+		
+	def display(self,commit=True, domain_override=None,             
+             use_https=False, token_generator=default_token_generator):
+	
+		ROLE_CHOICES=(
+		(0, 'Name'),
+		(1, 'Description'),
+		(2, 'Created time'),
+		(3, 'Privecy'),
+		(4, 'Published')
+		)
+		edit = models.IntegerField('Playlist information to change', choices=ROLE_CHOICES)   
+		return edit	
+			
+	def txtchoose(self,commit=True, domain_override=None,             
+             use_https=False, token_generator=default_token_generator):
+	     
+		if ViewEditPlaylist.edit == 'Name':
+			name = models.CharField('Playlist name', max_length = 100)
+		elif display.edit == 'Description': 				
+			description = models.CharField('Playlist description', max_length = 200)
+		elif display.edit == 'Created time': 				
+			created_time = models.DateTimeField()
+		elif display.edit == 'Privacy': 							
+			privacy = models.IntegerField(choices=PRIVACY_CHOICES)
+		elif display.edit == 'Published': 					
+			published = models.IntegerField(choices=PUBLISH_CHOICES)
+			
+	def save(self, commit=True, domain_override=None,             
+             use_https=False, token_generator=default_token_generator):
+		Playlist = super(viewedit_form, self).save(commit=False)
+		if display.edit == 'Name':
+			edit_name = Playlist.object.get(name = txtchoose.name)
+			edit_name.name = txtchoose.newname
+		elif display.edit == 'Desciption':		
+			edit_name = Playlist.object.get(name = txtchoose.description)
+			edit_name.description = txtchoose.newdescription
+		elif display.edit == 'Created time': 				
+			edit_name = Playlist.object.get(name = txtchoose.create_time)
+			edit_name.created_time = txtchoose.newcreated_time
+		elif display.edit == 'Privacy': 							
+			edit_name = Playlist.object.get(privacy = txtchoose.privacy)
+			edit_name.privacy = txtchoose.newprivacy
+		elif display.edit == 'Published': 					
+			edit_name = Playlist.object.get(name = txtchoose.published)
+			edit_name.published = txtchoose.newpublished
+		Playlist.is_active = False
+		Playlist.save()			
+	
+
+
 
 class UserCreationForm(forms.ModelForm):
     username = forms.RegexField(label="Username", max_length=30, regex=r'^[\w.@+-]+$',

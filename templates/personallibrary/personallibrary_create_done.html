@@ -1,15 +1,30 @@
 {%extends "base.html"%}
 {%load pagination_tags%}
 
-{%block title %} Create playlist - {{block.super}}{%endblock%}
+{%block title %} Playlist Created  - {{block.super}}{%endblock%}
 
 {%block main_content%}
 
 
-<div class="content-wrap">
 
-    <section id="main">
-       
-      </section>
-New playlist has created
+<section id="main">
+<form action="" method="post">
+
+<p><b>New playlist has created successfully </b></p>
+
+<br/>
+<br/>
+<br/>
+ <nav>
+			<ul>
+                <li><a href="{% url playlist_create %}">Create Playlist</a></li>
+				<li><a href="{% url playlist_viewedit %}">View/Edit playlist</a></li>
+                <li><a href="{% url playlist_share %}">Share playlist</a></li>
+                
+            </ul>      
+			</nav>
+ 
+</form>
+</section>
+
 {% endblock %}
