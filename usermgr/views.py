@@ -83,27 +83,23 @@ def password_reset(request):
 	else:
 		return HttpResponseRedirect("/user/")
     
-#@login_required    
-#def profile(request, username=None):
-#    """
-#    Renders information about a single user's profile.  This includes
-#    information about who follows them, who they follow, mutual followers, the
-#    latest events created, and whether the currently logged in user is a friend
-#    of the user to render.
-#    """
-#    user = request.user.get_profile()
-#    context = {
-#        'User': user,
-#    }
-#    return render_to_response(
-#        'usermgr/profile.html',
-#        context,
-#        context_instance = RequestContext(request)
-#    )
+@login_required
+def profile(request, username=None):
+    """
+    Renders information about a single user's profile.
+    """
+    user = request.user.get_profile()
+    context = {
+        'user': user,
+    }
+    return render_to_response(
+        'usermgr/profile.html',
+        context,
+        context_instance = RequestContext(request))
         
-#def profile_edit(request, template_name='usermgr/edit_profile.html', profile_edit_form=ProfileEditForm,):
-#        form = profile_edit_form(request.POST)
-#        if form.is_valid():
-#           form.save()
-#    return profile_views.edit_profile(request, form_class=ProfileEditForm)
-#        return render_to_response(template_name, {'form': form,}, context_instance=RequestContext(request))
+def profile_edit(request, template_name='usermgr/edit_profile.html', profile_edit_form=ProfileEditForm,):
+    form = profile_edit_form(request.POST)
+    if form.is_valid():
+       form.save()
+    #return profile_views.edit_profile(request, form_class=ProfileEditForm)
+    return render_to_response(template_name, {'form': form,}, context_instance=RequestContext(request))

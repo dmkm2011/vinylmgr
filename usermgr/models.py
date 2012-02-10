@@ -35,7 +35,7 @@ class UserProfile(models.Model):
     # username, password, firstname, lastname, email
     # are already included in Django's User model.
     biography = models.TextField()
-    avatar = models.ImageField(upload_to='define/a/path/to/store/avatars')
+    avatar = models.ImageField(upload_to='avatars')
     personal_page = models.URLField()
     published_tracklist = models.BooleanField()
     published_ownedlist = models.BooleanField()

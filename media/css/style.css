@@ -795,6 +795,94 @@ section#contact aside .social li.delicious a {
 section#contact aside .social li.flickr a {
     background: url(../images/social/flickr.png) no-repeat left 11px;
 }
+/* ----------------------------------------------------
+    AuthenticationForm
+----------------------------------------------------- */
+section#auth {
+    margin-top: 70px;
+}
+section#auth .primary form {
+    width: 500px;
+    background: url(../images/form-bg.png);
+    margin: 0px 0 25px 0;
+    padding: 30px 40px 50px 40px;
+}
+section#auth .primary form p {
+	font-family: "MerriweatherBold", Serif;
+    font-size: 17px;
+	color: #046416;
+    margin: 10px 0 10px 0;
+}
+section#auth .primary form p#error {
+    color: #EE1111;
+}
+section#auth .primary form p#hint {
+    color: #6A6969;
+}
+section#auth .primary form label {
+    display: block;
+    font-family: "MerriweatherBold", Serif;
+    font-size: 15px;
+    line-height: 25px;
+    margin: 0 0 5px 0;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 1);
+}
+section#auth .primary form label span {
+    color: #042406;
+}
+section#auth .primary form input,
+section#auth .primary form select,
+section#auth .primary form textarea {
+    margin-bottom: 20px;
+	padding: 9px 10px;
+    color: #6A6969;
+    background: #cbcbcb;
+	border-width: 1px;
+	border-style: solid;
+  	border-color: #b8b8b8 #EBEBEB #EBEBEB #b8b8b8;
+	font: 15px Helvetica, Arial, Sans-serif;
+    width: 325px;
+    
+    -moz-box-shadow:inset 0 3px 1px rgba(0, 0, 0, .1);
+    -webkit-box-shadow:inset 0 1px 3px rgba(0, 0, 0, .1);
+    box-shadow:inset 0 1px 3px rgba(0, 0, 0, .1);
+}
+section#auth .primary form textarea {
+    height: 325px;
+    margin-bottom: 0;
+}
+section#auth .primary form input:focus,
+section#auth .primary form select:focus,
+section#auth .primary form textarea:focus {
+	background: #F0F0F0;
+}
+section#auth .primary form input.button {
+   	height: 38px;
+	margin: 5px 0;
+	background: #1F8532 url(../images/btn-bg.png);
+    border: 1px solid #066a19;
+    font-family: "MerriweatherBold", Georgia, Serif;
+    font-size: 14px;
+    color: #ffffff;
+    cursor: pointer;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+    width: auto;
+    
+    box-shadow: 0px 1px 1px rgba(0,0,0,0.4), inset 0 1px 0 #28a441;
+    -moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.4), inset 0 1px 0 #28a441;
+    -webkit-box-shadow: 0px 1px 1px rgba(0,0,0,0.4), inset 0 1px 0 #28a441;
+}
+.ie7 section#auth .primary form input.button {
+    padding: 0 2px;
+}
+
+section#auth .primary form ul.errorlist {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size:15px;
+    color: #EE1111;
+}
 
 /* ----------------------------------------------------
     Footer

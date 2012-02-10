@@ -75,11 +75,6 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-#"C:/Python27/Scripts/vinylmgr/templates/usermgr/static/css",
-#"C:/Python27/Scripts/vinylmgr/templates/usermgr/static/images",
-#"C:/Python27/Scripts/vinylmgr/templates/usermgr/static/images/slides",
-#"C:/Python27/Scripts/vinylmgr/templates/usermgr/static/js",
-#"C:/Python27/Scripts/vinylmgr/templates/usermgr/static/PSDs",
 )
 
 # List of finder classes that know how to find static files in
@@ -134,7 +129,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
@@ -172,4 +166,5 @@ LOGGING = {
 AUTH_PROFILE_MODULE = 'usermgr.UserProfile'
 
 # URL of the login page.
-LOGIN_URL = '/login/'
+LOGIN_URL = '/u/login/'
+LOGIN_REDIRECT_URL = '/u/profile/'

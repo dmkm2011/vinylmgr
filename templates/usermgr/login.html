@@ -1,34 +1,37 @@
 {% extends "base.html" %}
-{% load pagination_tags %}
-
-
-{% comment %}
-{% load humanize %}
-{% load events_tags %} 
-{% endcomment %}
-
 {% block title %}Login - {{block.super}}{% endblock %}
 
 {% block main_content %}
-
-{% if form.errors %}
-<p>Authentication error</p>
-{% endif %}
-<br/>
-<br/>
-<section id="main">
-<form action="{% url django.contrib.auth.views.login %}" method="post">
-  {% for field in form %}
-  <p>
-    {{ field.label_tag }}: {{ field }}
-    {{ field.errors }}
-  </p>
-  {% endfor %}
-  <p><input type="submit" value="Login" /></p>
-  <input type="hidden" name="next" value="{{ next }}" />
-  <a href="{% url django.contrib.auth.views.password_reset %}">Forget password</a><br/>
-  <a href="{% url registration_register %}">Sign up new account</a>
-</form>
+<section id="auth" class="clearfix">
+    <h1>Login</h1>
+    <div class="primary">
+        <form action="{% url django.contrib.auth.views.login %}" method="post">
+            <div>
+            {% if form.errors %}
+            <p id="error">The username and password is not correct. Please try again.</p>
+            {% else %}
+            <p>Login to personalize your libraries and share your collections.</p>
+            {% endif %}
+            </div>
+            
+            {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field.errors }}
+                {{ field }}
+            </div>
+            {% endfor %}
+            
+            <div>
+            <input type="submit" value="Login" class="button"/>
+            <input type="hidden" name="next" value="{{ next }}" />
+            </div>
+            
+            <div>
+            <p id="hint"><a href="{% url auth_preset %}">Forgot your password?</a></p>
+            <p id="hint">Do not have an account? <a href="{% url registration_register %}">Register for an account</a> has never been easier!</p>
+            </div>
+        </form>
+    </div>
 </section>
-
 {% endblock %}

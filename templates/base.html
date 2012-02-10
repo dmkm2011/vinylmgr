@@ -47,8 +47,7 @@
         <nav>
             <ul>
                 {% if user.is_authenticated %}
-                    <li><a href="{% url personallib%}">Profile</a></span>
-                    <li><a href="{% url personallib %}">Personal Library</a></span>
+                    <li><a href="{% url personallib%}">Hi, {{ user.username }}</a></span>
                     <li><a href="{% url auth_logout %}">Logout</a></li>
                 {% else %}
                     <li><a href="{% url auth_login %}">Login</a></li>
