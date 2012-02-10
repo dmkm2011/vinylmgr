@@ -13,8 +13,9 @@ from django.conf import settings
 from django.utils.http import urlquote, base36_to_int
 from django.contrib.sites.models import Site
 from django.views.decorators.csrf import csrf_protect
-#from profiles import views as profile_views
-#from usermgr.forms import ProfileEditForm 
+from PIL import Image as PImage
+from os.path import join as pjoin
+from django import forms
  
 @csrf_protect
 def signup(request, template_name='usermgr/signup.html', 
@@ -83,6 +84,11 @@ def password_reset(request):
 	else:
 		return HttpResponseRedirect("/user/")
     
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        exclude = ["user",]
+    
 @login_required    
 def profile(request, username=None):
     """
@@ -92,6 +98,7 @@ def profile(request, username=None):
     of the user to render.
     """
     user = request.user.get_profile()
+    
     context = {
         'User': user,
     }
@@ -101,13 +108,12 @@ def profile(request, username=None):
         context_instance = RequestContext(request)
     )
     
-def profile_edit(request, form_class=None, success_url=None, template_name='usermgr/edit_profile.html', extra_context=None):
-    try:
-        profile_obj = request.user.get_profile()
-    except ObjectDoesNotExist:
-        return HttpResponseRedirect(reverse('registration_register'))
-    #if success_url is None:
-    #    success_url = reverse('profile',kwargs={ 'username': request.user.username })
+def profile_edit(request, form_class=None, success_url=None, template_name='usermgr/edit_profile.html'):
+    #try:
+    profile_obj = request.user.get_profile()
+    #    img = None
+    #except ObjectDoesNotExist:
+    #    return HttpResponseRedirect(reverse('registration_register'))
     success_url='/u/profile/'
     if form_class is None:
         form_class = ProfileEditForm
@@ -115,22 +121,31 @@ def profile_edit(request, form_class=None, success_url=None, template_name='user
         form = form_class(data=request.POST, files=request.FILES, instance=profile_obj)
         if form.is_valid():
             form.save()
-    #        return HttpResponseRedirect(success_url)
+            return HttpResponseRedirect(success_url)
+    #       # resize and save image under same filename
+    #        imfn = pjoin(MEDIA_ROOT, profile.avatar.name)
+    #        im = PImage.open(imfn)
+    #        im.thumbnail((160,160), PImage.ANTIALIAS)
+    #        im.save(imfn, "JPEG")
+    #        #return HttpResponseRedirect(success_url)
     else:
         form = form_class(instance=profile_obj)
     
-    if extra_context is None:
-        extra_context = {}
+    #if profile_obj.avatar:
+    #    img = "/media/" + profile_obj.avatar.name
+    
+    #if extra_context is None:
+    #    extra_context = {}
     context = RequestContext(request)
-    for key, value in extra_context.items():
-        context[key] = callable(value) and value() or value
+    
+    
+    #for key, value in extra_context.items():
+    #    context[key] = callable(value) and value() or value
     
     return render_to_response(template_name,
                               { 'form': form,
                                 'profile': profile_obj, },
-                              context_instance=context)
-profile_edit = login_required(profile_edit)
+                              context_instance=context,)
+#profile_edit = login_required(profile_edit)
 
-
-#    return profile_views.edit_profile(request, form_class=ProfileEditForm)
-#        return render_to_response(template_name, {'form': form,}, context_instance=RequestContext(request))
+#return render_to_response("forum/profile.html", add_csrf(request, pf=pf, img=img))

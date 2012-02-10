@@ -3,19 +3,23 @@
 {% block title %}Profile - {{user.username}}{% endblock %}
 
 {% block main_content %}
-<section id="main">
-    <div class="intro-box">
-        <h1>Hello, {{user.username}}</h1>
-
-        <p class="intro">First name: {{user.first_name}}</p>
-        <p class="intro">Last name: {{user.last_name}}</p>
-        <p class="intro">Email: {{user.email}}</p>
-    </div>
-    <div class="row no-bottom-margin">
-    </div>
+<section id="auth" class="clearfix">
+<h1>Hello, {{user.username}}</h1>
+<div class="primary">            
+<form method="POST" action="">
     <div>
-    <a href="{% url profile_edit %}">Edit your profile</a>
+            <p>First name: {{user.first_name}}</p>
+            <p>Last name: {{user.last_name}}</p>
+            <p>Email: {{user.email}}</p>
+            <p>{{user.user.biography}}</p>
     </div>
+</form>
+</div>
+
+<div>
+            <p id="hint"><a href="{% url profile_edit %}">Edit your profile</a></p>
+</div>
+
 </section>
 {% endblock %}
 

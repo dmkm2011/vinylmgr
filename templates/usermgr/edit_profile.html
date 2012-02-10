@@ -10,19 +10,34 @@
 {% block title %}Profile_edit - {{user.username}}{% endblock %}
 
 {% block main_content %}
-<br/>
-<br/>
-<br/>
 
-<p>Edit profile for <b>{{user}}</b></p>
+<section id="auth" class="clearfix">
+<h1>{{user}}, you can edit your profile here</h1>
+<div class="primary">
 <form method="POST" action="">
     {% for field in form %}
-  <p>
-    {{ field.label_tag }}: {{ field }}
-    {{ field.errors }}
-  </p>
+  <div>
+                {{ field.label_tag }}
+                {{ field.errors }}
+                {{ field }}
+  </div>
   {% endfor %}
-    <input type="submit" name="submit" value="Update" id="submit">
+  <div>
+    <input type="submit" value="Update" class="button"/>
+  </div>
 </form>
 
+{%comment%}
+<div class="secondary">
+<form enctype="multipart/form-data" action="{% url usermgr.views.save_profile user.pk %}" method="POST">
+    {% csrf_token %}
+    {% if img %} <p><img border="0" alt="Profile Pic" src="{{ img }}" /></p> {% endif %}
+    Profile Pic: {{ form.avatar }}
+    <input type="submit" value="Submit" id="submit" />
+</form>
+</div>
+
+{%endcomment%}
+</div>
+</section>
 {% endblock %}

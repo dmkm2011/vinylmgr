@@ -1,5 +1,6 @@
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
+from usermgr.models import UserProfile
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import int_to_base36
 from django.template import Context, loader
@@ -20,7 +21,7 @@ class UserCreationForm(forms.ModelForm):
     lastname = forms.CharField(label="Last name", widget=forms.TextInput)
     
     class Meta:
-        model = User
+        model = UserProfile
         fields = ("username",)
 
     def clean_password2(self):
@@ -74,18 +75,22 @@ class UserCreationForm(forms.ModelForm):
         send_mail("Confirmation link sent on %s" % site_name,
                   t.render(Context(c)), 'DMKMvinylmgr@gmail.com', [user.email])
         return user
-
         
 class ProfileEditForm(forms.ModelForm):
     firstname = forms.CharField(label="First name", widget=forms.TextInput)
     lastname = forms.CharField(label="Last name", widget=forms.TextInput)
+    email = forms.EmailField(label="Email", max_length=75)
     class Meta:
-        model = User
-        fields = ("username","firstname","lastname","email",)
-    def edit(self):
-        U = super(ProfileEditForm, self).save(commit=False)
-        U.first_name = self.cleaned_data['firstname']
-        U.last_name = self.cleaned_data['lastname']
-        U.is_active = False
-        U.save()
+        model = UserProfile
+        exclude = ("user")
+#    class Meta():
+#        model = User
+#        fields = ("first_name", "last_name", "email",)
+    def save(self):
+        u = super(ProfileEditForm, self).save(commit=False)
+        u.user.first_name = self.cleaned_data['firstname']
+        u.user.last_name = self.cleaned_data['lastname']
+        u.user.email = self.cleaned_data['email']
+        u.user.is_active = False
+        u.save()
         
