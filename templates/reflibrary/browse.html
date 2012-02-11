@@ -1,11 +1,6 @@
 {% extends "base.html" %}
 {% load pagination_tags %}
 
-{% comment %}
-{% load humanize %}
-{% load events_tags %} 
-{% endcomment %}
-
 {% block title %}Browse - {{ block.super }}{% endblock %}
 
 {% block main_content %}
@@ -57,8 +52,8 @@
                 </a>
             </li>
         {% endfor %}
-        {% paginate %}
     </ul>
+    {% paginate %}
 {% else %}
     <p class="intro">There are no records listed.</p>
 {% endif %}

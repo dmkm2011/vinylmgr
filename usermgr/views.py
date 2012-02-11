@@ -108,8 +108,16 @@ def profile(request, user_name=None):
         user.avatar_url = settings.MEDIA_URL + "avatar/noavatar.png"
     else:
         user.avatar_url = user.avatar.url
+    
+    # get tracked list, ownedlist and playlist
+    trackedlist = user.trackedrecordlist_set.all()
+    ownedlist = user.userentry_set.all()
+    playlist = user.playlist_set.all()
     context = {
         'profile_user': user,
+        'trackedlist': trackedlist,
+        'ownedlist': ownedlist,
+        'playlist': playlist
     }
     return render_to_response(
         'usermgr/profile.html',

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load pagination_tags %}
 
 {% block title %}Profile - {{profile_user.display_name}}{% endblock %}
 
@@ -26,6 +27,104 @@
         </p>
     </div>
     <div class="row no-bottom-margin"></div>
+</section>
+
+<section id="record-recommends">
+    <h1>Tracked list</h1>
+    <div>
+    {% if trackedlist %}
+        <ul class="folio-list clearfix">
+        {% autopaginate trackedlist 4 %}
+        {% for r in trackedlist %}
+            <li class="folio-thumb">
+                <a href="{% url r_record r.record.id %}" title="Tracked at {{ r.tracked_time }} Click to view." >
+                    <div class="thumb">
+                        <img src="{{ r.record.cover_art.url }}" width="190px" height="125px" alt="" />
+                    </div>
+                    <h3 class="entry-title">
+                        {{ r.record.title }}<br />
+                    </h3>
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+        {% paginate %}
+    {% else %}
+        {% if user.username == profile_user.user.username %}
+        <p class="info">Unfortunately, you don't have any tracked record.<br />
+        <a href="{% url index %}">Browse our store</a>
+        and mark records as "tracked" to show your interests and personalities!</p>
+        {% else %}
+        <p class="info">{{ profile_user.display_name }} doesn't have any tracked record.</p>
+        {% endif %}
+    {% endif %}
+    </div>
+</section>
+
+<section id="record-recommends">
+    <h1>Owned list</h1>
+    <div>
+    {% if ownedlist %}
+        <ul class="folio-list clearfix">
+        {% autopaginate ownedlist 4 %}
+        {% for r in ownedlist %}
+            <li class="folio-thumb">
+                <a href="{% url r_record r.record.id %}" title="Tracked at {{ r.tracked_time }} Click to view." >
+                    <div class="thumb">
+                        <img src="{{ r.record.cover_art.url }}" width="190px" height="125px" alt="" />
+                    </div>
+                    <h3 class="entry-title">
+                        {{ r.record.title }}<br />
+                    </h3>
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+        {% paginate %}
+    {% else %}
+        {% if user.username == profile_user.user.username %}
+        <p class="info">Unfortunately, you don't have any owned record.<br />
+        <a href="{% url index %}">Browse our store</a>
+        and promote records to your owned list!</p>
+        {% else %}
+        <p class="info">{{ profile_user.display_name }} doesn't have any owned record.</p>
+        {% endif %}
+    {% endif %}
+    </div>
+</section>
+
+<section id="record-soundtracks">
+     <h1>Playlist</h1>
+    <div>
+    {% if playlist %}
+        <table>
+            <tr id="header">
+                <td>Name</td>
+                <td>Description</td>
+                <td>Creation time</td>
+                <td>Privacy</td>
+                <td>Published</td>
+            </tr>
+            {% for r in playlist %}
+            <tr id="{% cycle 'even' 'odd' %}">
+                <td>{{ r.playlist.name }}</td>
+                <td>{{ r.playlist.description }}</td>
+                <td>{{ r.playlist.created_time }}</td>
+                <td>{{ r.playlist.privacy }}</td>
+                <td>{{ r.playlist.published }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        {% if user.username == profile_user.user.username %}
+        <p class="info">Unfortunately, you don't have any playlist.<br />
+        <a href="{% url index %}">Create a playlist</a>
+         has never been easier!</p>
+        {% else %}
+        <p class="info">{{ profile_user.display_name }} doesn't have any playlist.</p>
+        {% endif %}
+    {% endif %}
+    </div>
 </section>
 {% endblock %}
 

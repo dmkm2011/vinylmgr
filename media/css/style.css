@@ -556,6 +556,13 @@ section#record-soundtracks {
     width: 940px;
     background: none;
 }
+
+section#record-soundtracks h1 {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 28px;
+}
+
 section#record-soundtracks table{
     width: 100%;
     border: none;
@@ -592,7 +599,9 @@ section#record-recommends h1 {
     margin-bottom: 0px;
     font-size: 28px;
 }
-
+section#record-recommends .pagination {
+    float: right;
+}
 section#record-recommends ul.folio-list {
     margin: 0px 0;
     padding: 0;

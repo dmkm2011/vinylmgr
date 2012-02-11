@@ -1,4 +1,5 @@
-from usermgr.models import PlatformLanguage
+from usermgr.models import *
 from django.contrib import admin
 
 admin.site.register(PlatformLanguage)
+admin.site.register(UserProfile)

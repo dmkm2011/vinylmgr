@@ -8,14 +8,7 @@ def browse(request):
     Renders a list of ``Record`` instances
     """
     
-    records = Record.objects.all()
-    #if request.user.is_authenticated():
-        #following = list(request.user.following_set.all().values_list('to_user', 
-        #    flat=True))
-        
-    #else:
-        #following = None
-    records = records.order_by('-title', '-matrix_number').distinct()
+    records = Record.objects.all().order_by('-modified_date').distinct()[:8]
     context = {
         'records': records
     }

@@ -38,7 +38,7 @@ class TrackedRecordList(models.Model):
     record = models.ForeignKey(Record)
     
     def __unicode__(self):
-        return self.tracked_time
+        return self.tracked_time.isoformat()
 
 
 ####################################################################
@@ -65,7 +65,7 @@ class PersonalEntryAttribute(models.Model):
         
 class UserEntry(models.Model):
     record = models.ForeignKey(Record)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(UserProfile)
     condition = models.ForeignKey(EntryCondition)
     
     personal_entries = models.ManyToManyField(PersonalEntryAttribute, through='EntryAttributes')

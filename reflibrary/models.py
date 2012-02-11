@@ -92,7 +92,7 @@ class Record(models.Model):
     title = models.CharField('Record title', max_length=50)
     matrix_number = models.CharField('Record\'s matrix number', max_length=50)
     cover_art = models.ImageField(upload_to='cover_arts')
-    
+    modified_date = models.DateTimeField('Date modified', auto_now=True, auto_now_add=True)
     category = models.ForeignKey(RecordCategory)
     medium = models.ForeignKey(Medium)
     soundtrack = models.ManyToManyField(SoundTrack)
