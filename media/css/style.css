@@ -530,7 +530,7 @@ section#portfolio ul.folio-list li h3.entry-title {
 section#record {
     width: 940px;
     background: none;
-    margin-top: 90px;
+    margin-top: 75px;
 }
 section#record h1 {
     margin-top: 0px;
@@ -547,10 +547,6 @@ section#record .info {
     margin-bottom: 13px;
     width: 657px;
     height: 150px;
-}
-section#record .row .col h2 {
-    margin-top: 15px;
-    margin-bottom: 10px;
 }
 
 /* -----------------------------------------
@@ -628,6 +624,31 @@ section#record-recommends ul.folio-list li h3.entry-title {
     line-height: 25px;
     margin-left: 36px;
 }
+/* -----------------------------------------
+    Profile
+------------------------------------------ */
+section#profile {
+    width: 940px;
+    background: none;
+    margin-top: 90px;
+}
+section#profile h1 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+section#profile .avatar{
+    float:left;
+    width:150px;
+    min-height: 150px;
+}
+section#profile .info {
+    float: right;
+    position: relative;
+    margin-bottom: 13px;
+    width: 757px;
+    height: 150px;
+}
+
 /* ------------------------------------------------
     About
 ------------------------------------------------ */

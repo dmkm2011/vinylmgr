@@ -79,18 +79,17 @@ class UserCreationForm(forms.ModelForm):
 class ProfileEditForm(forms.ModelForm):
     firstname = forms.CharField(label="First name", widget=forms.TextInput)
     lastname = forms.CharField(label="Last name", widget=forms.TextInput)
-    email = forms.EmailField(label="Email", max_length=75)
+    
     class Meta:
         model = UserProfile
-        exclude = ("user")
-#    class Meta():
-#        model = User
-#        fields = ("first_name", "last_name", "email",)
+        fields = ('firstname', 'lastname', 'personal_page', 'avatar',
+                    'published_tracklist', 'published_ownedlist', 'biography')
+
     def save(self):
         u = super(ProfileEditForm, self).save(commit=False)
         u.user.first_name = self.cleaned_data['firstname']
         u.user.last_name = self.cleaned_data['lastname']
-        u.user.email = self.cleaned_data['email']
         u.user.is_active = False
+        u.user.save()
         u.save()
         

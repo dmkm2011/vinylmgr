@@ -82,70 +82,69 @@ def password_reset(request):
                           email_template_name= 'usermgr/password_reset_email.html',
                           post_reset_redirect='/usermgr/password_reset/done/')
 	else:
-		return HttpResponseRedirect("/user/")
+		return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
     
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        exclude = ["user",]
-    
-@login_required    
-def profile(request, username=None):
+@login_required
+def profile(request, user_name=None):
     """
-    Renders information about a single user's profile.  This includes
-    information about who follows them, who they follow, mutual followers, the
-    latest events created, and whether the currently logged in user is a friend
-    of the user to render.
+    Renders information about a single user's profile.
     """
-    user = request.user.get_profile()
     
+    # get the viewed user
+    if user_name is None:
+        user = request.user.get_profile()
+    else:
+        user = get_object_or_404(User, username=user_name)
+        user = user.get_profile()
+    
+    # set display name
+    if len(user.user.first_name) <= 0:
+        user.display_name = user.user.username
+    else:
+        user.display_name = user.user.first_name + " " + user.user.last_name
+    
+    # set avatar path
+    if len(user.avatar.name) <= 0:
+        user.avatar_url = settings.MEDIA_URL + "avatar/noavatar.png"
+    else:
+        user.avatar_url = user.avatar.url
     context = {
-        'User': user,
+        'profile_user': user,
     }
     return render_to_response(
         'usermgr/profile.html',
         context,
-        context_instance = RequestContext(request)
-    )
-    
-def profile_edit(request, form_class=None, success_url=None, template_name='usermgr/edit_profile.html'):
-    #try:
-    profile_obj = request.user.get_profile()
-    #    img = None
-    #except ObjectDoesNotExist:
-    #    return HttpResponseRedirect(reverse('registration_register'))
-    success_url='/u/profile/'
-    if form_class is None:
-        form_class = ProfileEditForm
+        context_instance = RequestContext(request))
+
+@login_required
+def profile_edit(request, form_class=ProfileEditForm, success_url='/u/profile', template_name='usermgr/edit_profile.html'):
+    try:
+        profile_obj = request.user.get_profile()
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('registration_register'))
+
+        
     if request.method == 'POST':
         form = form_class(data=request.POST, files=request.FILES, instance=profile_obj)
         if form.is_valid():
             form.save()
+            # resize and save image under same filename
+            if len(profile_obj.avatar.name) > 0:
+                imfn = pjoin(settings.MEDIA_ROOT, profile_obj.avatar.name)
+                im = PImage.open(imfn)
+                im.thumbnail((160,160), PImage.ANTIALIAS)
+                im.save(imfn, "JPEG")
             return HttpResponseRedirect(success_url)
-    #       # resize and save image under same filename
-    #        imfn = pjoin(MEDIA_ROOT, profile.avatar.name)
-    #        im = PImage.open(imfn)
-    #        im.thumbnail((160,160), PImage.ANTIALIAS)
-    #        im.save(imfn, "JPEG")
-    #        #return HttpResponseRedirect(success_url)
     else:
-        form = form_class(instance=profile_obj)
-    
-    #if profile_obj.avatar:
-    #    img = "/media/" + profile_obj.avatar.name
-    
-    #if extra_context is None:
-    #    extra_context = {}
-    context = RequestContext(request)
-    
-    
-    #for key, value in extra_context.items():
-    #    context[key] = callable(value) and value() or value
-    
+        p_initial = {'biography': profile_obj.biography,
+                  'personal_page': profile_obj.personal_page,
+                  'published_tracklist': profile_obj.published_tracklist,
+                  'published_ownedlist': profile_obj.published_ownedlist,
+                  'firstname': profile_obj.user.first_name,
+                  'lastname': profile_obj.user.last_name,
+                  'email': profile_obj.user.email}
+        form = form_class(initial=p_initial, instance=profile_obj)
     return render_to_response(template_name,
-                              { 'form': form,
-                                'profile': profile_obj, },
-                              context_instance=context,)
-#profile_edit = login_required(profile_edit)
-
-#return render_to_response("forum/profile.html", add_csrf(request, pf=pf, img=img))
+                          { 'form': form,
+                            'profile': profile_obj, },
+                          context_instance=RequestContext(request))

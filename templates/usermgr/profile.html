@@ -1,25 +1,31 @@
 {% extends "base.html" %}
 
-{% block title %}Profile - {{user.username}}{% endblock %}
+{% block title %}Profile - {{profile_user.display_name}}{% endblock %}
 
 {% block main_content %}
-<section id="auth" class="clearfix">
-<h1>Hello, {{user.username}}</h1>
-<div class="primary">            
-<form method="POST" action="">
-    <div>
-            <p>First name: {{user.first_name}}</p>
-            <p>Last name: {{user.last_name}}</p>
-            <p>Email: {{user.email}}</p>
-            <p>{{user.user.biography}}</p>
+<section id="profile">
+    <h1>{{profile_user.display_name}}</h1>
+    <div class="avatar">
+        <img src="{{ profile_user.avatar_url }}" width="150px" height="150px" alt="{{ profile_user.display_name }} Avatar" />
     </div>
-</form>
-</div>
-
-<div>
-            <p id="hint"><a href="{% url profile_edit %}">Edit your profile</a></p>
-</div>
-
+    <div class="info">
+        <p>
+            <strong>{{profile_user.display_name}}'s Personal library</strong>
+            {% if user.username == profile_user.user.username %}
+            <span><a href="{% url profile_edit %}">[Edit your profile]</a></span>
+            {% endif %}
+        </p>
+        <p>
+            {% if profile_user.personal_page %}
+                <a href="{{ profile_user.personal_page }}" target="_blank" title="{{ profile_user.display_name }} Personal page" >
+                {{ profile_user.personal_page }}
+                </a><br />
+            {% endif %}
+            Email: <a href="mailto:{{ profile_user.user.email }}" title="Send an email">{{ profile_user.user.email }}</a><br />
+            {% if profile_user.biography %}{{ profile_user.biography }}{% endif %}
+        </p>
+    </div>
+    <div class="row no-bottom-margin"></div>
 </section>
 {% endblock %}
 

@@ -1,43 +1,18 @@
 {% extends "base.html" %}
-{% load pagination_tags %}
-
-
-{% comment %}
-{% load humanize %}
-{% load events_tags %} 
-{% endcomment %}
-
-{% block title %}Profile_edit - {{user.username}}{% endblock %}
+{% block title %}Edit profile - {{profile.user.username}}{% endblock %}
 
 {% block main_content %}
-
 <section id="auth" class="clearfix">
-<h1>{{user}}, you can edit your profile here</h1>
-<div class="primary">
-<form method="POST" action="">
-    {% for field in form %}
-  <div>
-                {{ field.label_tag }}
-                {{ field.errors }}
-                {{ field }}
-  </div>
-  {% endfor %}
-  <div>
-    <input type="submit" value="Update" class="button"/>
-  </div>
-</form>
-
-{%comment%}
-<div class="secondary">
-<form enctype="multipart/form-data" action="{% url usermgr.views.save_profile user.pk %}" method="POST">
-    {% csrf_token %}
-    {% if img %} <p><img border="0" alt="Profile Pic" src="{{ img }}" /></p> {% endif %}
-    Profile Pic: {{ form.avatar }}
-    <input type="submit" value="Submit" id="submit" />
-</form>
-</div>
-
-{%endcomment%}
-</div>
+    <h1>Edit profile</h1>
+    <div class="primary">
+        <form enctype="multipart/form-data" method="POST" action="">
+        <p><label>Email: {{ profile.user.email }}</label></p>
+        {{ form.as_p }}
+        <div>
+            <input type="submit" value="Update" class="button"/>
+            <a href="{% url auth_profile %}"><input type="button" value="Cancel" class="button"/></a>
+        </div>
+        </form>
+    </div>
 </section>
 {% endblock %}

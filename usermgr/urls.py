@@ -1,8 +1,5 @@
-# decoupled from project vinylmgr/urls.py
 from django.conf.urls.defaults import patterns, include, url
 from vinylmgr.usermgr.forms import ProfileEditForm
-#from django.contrib.auth.views import *
-#from vinylmgr.usermgr.views import *
 
 from django.contrib import admin
 admin.autodiscover()
@@ -39,5 +36,10 @@ urlpatterns = patterns('',
         'vinylmgr.usermgr.views.signup_complete',
         {'template_name': 'usermgr/signup_complete.html'}),
     url(r'^profile/$', 'vinylmgr.usermgr.views.profile', name="auth_profile"),
-    url(r'^profile/edit$','vinylmgr.usermgr.views.profile_edit', name="profile_edit"),
+    url(r'^profile/(?P<user_name>[0-9A-Za-z]+)/$', 'vinylmgr.usermgr.views.profile', name="auth_view_profile"),
+    url(r'^profile/edit$','vinylmgr.usermgr.views.profile_edit',
+        {'form_class': ProfileEditForm,
+         'success_url': '/u/profile',
+         'template_name': 'usermgr/edit_profile.html'},
+        name="profile_edit"),
 )
