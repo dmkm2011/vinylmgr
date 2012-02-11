@@ -89,7 +89,7 @@ class ProfileEditForm(forms.ModelForm):
         u = super(ProfileEditForm, self).save(commit=False)
         u.user.first_name = self.cleaned_data['firstname']
         u.user.last_name = self.cleaned_data['lastname']
-        u.user.is_active = False
+        #u.user.is_active = False
         u.user.save()
         u.save()
         
