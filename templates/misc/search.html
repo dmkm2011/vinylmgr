@@ -1,22 +1,69 @@
 {% extends "base.html" %}
 
-{% block title %}Search - {{ block.super }}{% endblock %}
+{% block title %}About Us - {{ block.super }}{% endblock %}
 
 {% block main_content %}
 <h1>About Team and Project</h1>
 <p><br /><br />
 <p class="info">
-<h2>Search</h2>
-This project is a combined effort of the team members from Nantes and Lyon. The team members are
-<ul>
-<li><a href="phvu225@gmail.com">Vu Pham</a>
-<li><a href="nooralahzadeh@gmail.com">Farhad Nooralahzadeh</a>
-<li><a href="punyavee.napalai@gmail.com">Punyavee Napalai</a>
-<li><a href="muhammad.ahsan@gmail.com">Muhammad Ahsan</a>
-<li><a href="rosatsegaye@gmail.com">Roza Tsegaye</a>
-</ul>
-You can also find us on facebook @ <a href="https://www.facebook.com/groups/dmkm.adb/346213955398936/?notif_t=group_activity">"DMKM Advanced Databases. "</a>
-You can send a mail to us at <a>dmkm.adb@groups.facebook.com</a>
+<h2>Full Database Text Search</h2>
 
+<form id="searchForm" method="post" action="{% url search %}">
+<h3>Choose search criteria</h3>
+<div align="left"><br>
+
+
+<select name="mydropdown">
+<option value="SoundTrack">Sound Tracks</option>
+<option value="Record">Record</option>
+<option value="Style">Style</option>
+
+<option value="Genre">Genre</option>
+<option value="Artist">Artist</option>
+<option value="Role">Role</option>
+</select>
+</div>
+<div><input id="q" name="q" type="text" value="{{ q }}"></input>
+<input type="submit" value="Search" class="button"/>
+<p></p>
+
+<div>
+        {% if query_string %}
+        
+        <table>
+            <tr id="header">
+           
+                
+            </tr>
+            {% for s in query_string %}
+            <tr id="{% cycle 'even' 'odd' %}">
+                <td>{{ s.id }}</td>
+                <td>{{ s.name }}</td>
+                <td>{{ s.artist.name }}</td>
+                <td>{{ s.style_type.name }}</td>
+                <td>{{ s.rhythm_type.name }}</td>
+                <td>{{ s.original_version }}</td>
+                <td>{{ s.label }}</td>
+                <td>{{ s.duration }}</td>
+                <td>{{ s.release_date }}</td>
+                <td> {{ s.title }}</td>
+                <td> {{ s.matrix_number  }}</td>
+                <td> {{ s.cover_art  }}</td>
+                <td> {{ s.category  }}</td>
+                <td> {{ s.medium  }}</td>
+                <td> {{ s.soundtrack  }}</td>
+                <td> {{ s.artists  }}</td>
+                <td> {{ s.genre_type }}</td>
+                <td> {{ s.homepage }}</td>
+                <td> {{ s.bio  }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p class="info">There are no record found.</p>
+        {% endif %}
+</div>
+  </div>
+</form>
 </p>
 {% endblock %}
