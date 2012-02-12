@@ -63,6 +63,10 @@
 
 <section id="record-recommends">
     <h1>Owned records</h1>
+    {% if ownedlist and user.username == profile_user.user.username %}
+        <p class="info">List of your own records.
+        Click <a href="{% url r_add_record %}">here</a> to add another record!</p>
+    {% endif %}
     <div>
     {% if ownedlist %}
         <ul class="folio-list clearfix">
@@ -84,7 +88,8 @@
     {% else %}
         {% if user.username == profile_user.user.username %}
         <p class="info">Unfortunately, you don't have any owned record.<br />
-        <a href="{% url index %}">Browse our store</a>
+        <a href="{% url r_add_record %}"> Add a record</a> manually, or 
+        <a href="{% url index %}">browse our store</a>
         and promote records to your owned list!</p>
         {% else %}
         <p class="info">{{ profile_user.display_name }} doesn't have any owned record.</p>

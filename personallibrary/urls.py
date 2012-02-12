@@ -11,5 +11,5 @@ urlpatterns = patterns('',
     #url(r'^create_done/$', 'vinylmgr.personallibrary.views.create_done',{'template_name': 'personallibrary/personallibrary_create_done.html'}),
     #url(r'^personal_library/', include('vinylmgr.personallibrary.urls')),
     #url(r'^personal$', 'vinylmgr.views.index', name="personallib"),
-    url(r'^', 'personallibrary.views.personal_toggle_track', name="perlib_toggle_track"),
+    url(r'^tracked$', 'personallibrary.views.personal_toggle_track', name="perlib_toggle_track"),
 )

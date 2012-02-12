@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Add a record - {{block.super}}{% endblock %}
+
+{% block main_content %}
+<section id="auth" class="clearfix">
+    <h1>Add a new record</h1>
+    <div class="primary">
+        <form action="" method="post">
+            <div>
+            {% if form.errors %}
+            <p id="error">Please try again.</p>
+            {% else %}
+            <p>Add a new record to our reference database.</p>
+            {% endif %}
+            </div>
+            
+            {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field.errors }}
+                {{ field }}
+            </div>
+            {% endfor %}
+            
+            <div>
+            <input type="submit" value="Add" class="button"/>
+            <input type="submit" value="Cancel" class="button"/>
+            </div>
+            
+            <div>
+            <p id="hint">
+                You might add <a href="{% url auth_preset %}">a soundtrack</a> or 
+                <a href="{% url auth_preset %}">an artist</a>, then come back to this page and continue adding.
+            </p>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

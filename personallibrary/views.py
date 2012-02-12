@@ -11,10 +11,11 @@ from django.conf import settings
 from django.utils.http import urlquote, base36_to_int
 from django.contrib.sites.models import Site
 from django.views.decorators.csrf import csrf_protect
-from vinylmgr.personallibrary.forms import UserCreationForm
 from vinylmgr.personallibrary.forms import *
 from vinylmgr.usermgr.models import *
 from vinylmgr.reflibrary.models import Record
+from vinylmgr.personallibrary.models import TrackedRecordList
+from datetime import datetime
 
 def personal_toggle_track(request):
     """
@@ -26,7 +27,24 @@ def personal_toggle_track(request):
         raise Http404
     record = get_object_or_404(Record, id=record_id)
     
+    trackedrecord = TrackedRecordList.objects.filter(user=request.user.get_profile(), record=record)
+    if len(trackedrecord) == 0:
+        TrackedRecordList.objects.create(user=request.user.get_profile(), 
+        record=record, tracked_time=datetime.now())
+    else:
+        trackedrecord[0].delete()
+    
+    # if request.is_ajax():
+        # If the request is AJAX, return JSON representing the new count of
+        # people who are attending the event.
+    #    json = '{"created": %s, "count": %s}' % (created and 'true' or 'false', 
+    #        event.attendees.all().count())
+    #    return HttpResponse(json, mimetype='application/json')
 
+    next = request.POST.get('next', '')
+    #if not next:
+    #    next = reverse('r_record')
+    return HttpResponseRedirect(next)
     
 def personal_library(request,template_name='personallibrary/personallibrary_form.html'):
     return render_to_response(template_name)	

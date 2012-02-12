@@ -1,7 +1,9 @@
 from django.utils.translation import ugettext as _
+from django.contrib.auth.views import *
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from reflibrary.models import Record, RecordFeaturing, SoundTrackFeaturing
+from reflibrary.forms import RecordCreationForm
 
 def browse(request):
     """
@@ -49,3 +51,19 @@ def record(request, record_id):
          'recommends': recommends},
         context_instance = RequestContext(request)
     )
+
+@login_required
+def add_record(request, template_name='reflibrary/addrecord_form.html', 
+           add_form=RecordCreationForm,
+           post_redirect=None):
+    #if post_redirect is None:
+    #    post_redirect = reverse('vinylmgr.usermgr.views.signup_done')
+    if request.method == "POST":
+        form = add_form(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(post_redirect)
+    else:
+        form = add_form()
+    return render_to_response(template_name, {'form': form,}, 
+                              context_instance=RequestContext(request))
