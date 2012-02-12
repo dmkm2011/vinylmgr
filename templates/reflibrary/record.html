@@ -11,7 +11,22 @@
         </a>
     </div>
     <div class="info">
-        <p><strong>{{ record.title }}</strong></p>
+        <div>
+        <p style="margin-bottom: 0px"><strong>{{ record.title }}</strong></p>
+        {% if user.is_authenticated %}
+        <form method="POST" id="toggle_attendance_form_{{ event_num }}" action="{% url perlib_toggle_track %}">
+            <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{{ request.path }}{% endif %}" />
+            <input type="hidden" name="record_id" value="{{ record.id }}" />
+            {% if tracked %}
+            <input class="button" type="submit" value="Untrack" />
+            {% else %}
+            <input class="button" type="submit" value="Track" />
+            {% endif %}
+        </form>
+        {% else %}
+        <div style="margin-bottom: 10px">[<a href="{% url auth_login %}">Login</a> to Track/Untrack]</div>
+        {% endif %}
+        </div>
         <p>
             Matrix number: {{ record.matrix_number }}<br />
             Format: {{ record.medium }}. {{ record.category }}<br />

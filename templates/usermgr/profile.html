@@ -30,7 +30,7 @@
 </section>
 
 <section id="record-recommends">
-    <h1>Tracked list</h1>
+    <h1>Tracked records</h1>
     <div>
     {% if trackedlist %}
         <ul class="folio-list clearfix">
@@ -62,14 +62,14 @@
 </section>
 
 <section id="record-recommends">
-    <h1>Owned list</h1>
+    <h1>Owned records</h1>
     <div>
     {% if ownedlist %}
         <ul class="folio-list clearfix">
         {% autopaginate ownedlist 4 %}
         {% for r in ownedlist %}
             <li class="folio-thumb">
-                <a href="{% url r_record r.record.id %}" title="Tracked at {{ r.tracked_time }} Click to view." >
+                <a href="{% url r_record r.record.id %}" title="Condition: {{ r.condition }}. Click to view details." >
                     <div class="thumb">
                         <img src="{{ r.record.cover_art.url }}" width="190px" height="125px" alt="" />
                     </div>
@@ -94,7 +94,8 @@
 </section>
 
 <section id="record-soundtracks">
-     <h1>Playlist</h1>
+    <h1>Playlists</h1>
+    <p class="info">List of playlists that {{ profile_user.display_name }} has contributed.</p>
     <div>
     {% if playlist %}
         <table>
@@ -105,13 +106,13 @@
                 <td>Privacy</td>
                 <td>Published</td>
             </tr>
-            {% for r in playlist %}
+            {% for p in playlist %}
             <tr id="{% cycle 'even' 'odd' %}">
-                <td>{{ r.playlist.name }}</td>
-                <td>{{ r.playlist.description }}</td>
-                <td>{{ r.playlist.created_time }}</td>
-                <td>{{ r.playlist.privacy }}</td>
-                <td>{{ r.playlist.published }}</td>
+                <td>{{ p.name }}</td>
+                <td>{{ p.description }}</td>
+                <td>{{ p.created_time }}</td>
+                <td>{{ p.get_privacy_display }}</td>
+                <td>{{ p.get_published_display }}</td>
             </tr>
             {% endfor %}
         </table>

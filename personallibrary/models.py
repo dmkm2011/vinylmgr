@@ -61,7 +61,7 @@ class PersonalEntryAttribute(models.Model):
     user = models.ForeignKey(UserProfile)
     
     def __unicode__(self):
-        return name
+        return self.name
         
 class UserEntry(models.Model):
     record = models.ForeignKey(Record)
@@ -71,7 +71,7 @@ class UserEntry(models.Model):
     personal_entries = models.ManyToManyField(PersonalEntryAttribute, through='EntryAttributes')
     
     def __unicode__(self):
-        return record
+        return self.record.__unicode__()
 
 # the intermediary model between UserEntry - PersonalEntryAttribute
 # many-to-many relationship.
@@ -81,7 +81,7 @@ class EntryAttributes(models.Model):
     attribute = models.ForeignKey(PersonalEntryAttribute)
     
     def __unicode__(self):
-        return value
+        return self.value
 
 class Playlist(models.Model):
     PRIVACY_CHOICES=(
@@ -102,7 +102,7 @@ class Playlist(models.Model):
     workers = models.ManyToManyField(UserProfile, through='PlaylistWorker')
     
     def __unicode__(self):
-        return name
+        return self.name
 
 # the intermediary model between UserProfile - Playlist
 # many-to-many relationship.
@@ -116,7 +116,7 @@ class PlaylistWorker(models.Model):
     playlist = models.ForeignKey(Playlist)
     
     def __unicode__(self):
-        return role
+        return self.get_role_display()
         
 class SoundTrackInPlaylist(models.Model):
     play_order = models.IntegerField('Order of this soundtrack in the playlist')
@@ -125,4 +125,4 @@ class SoundTrackInPlaylist(models.Model):
     playlist = models.ForeignKey(Playlist)
     
     def __unicode__(self):
-        return play_order;
+        return self.play_order;

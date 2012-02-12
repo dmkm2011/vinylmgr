@@ -8,7 +8,8 @@ def browse(request):
     Renders a list of ``Record`` instances
     """
     
-    records = Record.objects.all().order_by('-modified_date').distinct()[:8]
+    #records = Record.objects.all().order_by('-modified_date').distinct()[:8]
+    records = Record.objects.all().order_by('-modified_date').distinct()
     context = {
         'records': records
     }
@@ -32,11 +33,19 @@ def record(request, record_id):
         else:
             s.artist = None
     recommends = Record.objects.all()[:4]
+    if request.user.is_authenticated():
+        if len(request.user.get_profile().trackedrecordlist_set.filter(record__id=record_id)) > 0:
+            tracked = 1
+        else:
+            tracked = -1
+    else:
+        tracked = 0
     return render_to_response(
         'reflibrary/record.html',
         {'record': r,
          'featuring': featuring,
          'tracks': tracks,
+         'tracked': tracked,
          'recommends': recommends},
         context_instance = RequestContext(request)
     )

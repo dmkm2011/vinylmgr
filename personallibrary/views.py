@@ -1,15 +1,9 @@
-# Create your views here.
-
-
 from django.db import models
 from django.contrib.sites.models import Site
 from django.contrib.auth.views import *
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, Http404
-from vinylmgr.personallibrary.forms import UserCreationForm
-from vinylmgr.personallibrary.forms import *
-from vinylmgr.usermgr.models import *
 from django.contrib.auth.tokens import default_token_generator
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
@@ -17,9 +11,23 @@ from django.conf import settings
 from django.utils.http import urlquote, base36_to_int
 from django.contrib.sites.models import Site
 from django.views.decorators.csrf import csrf_protect
+from vinylmgr.personallibrary.forms import UserCreationForm
+from vinylmgr.personallibrary.forms import *
+from vinylmgr.usermgr.models import *
+from vinylmgr.reflibrary.models import Record
 
+def personal_toggle_track(request):
+    """
+    Toggles whether a record is in a user's tracked list or not.
+    """
+    try:
+        record_id = int(request.POST['record_id'])
+    except (KeyError, ValueError):
+        raise Http404
+    record = get_object_or_404(Record, id=record_id)
+    
 
-	
+    
 def personal_library(request,template_name='personallibrary/personallibrary_form.html'):
     return render_to_response(template_name)	
 	

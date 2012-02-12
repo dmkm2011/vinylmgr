@@ -549,6 +549,29 @@ section#record .info {
     height: 150px;
 }
 
+section#record .info form {
+    width: 100px;
+    margin: 0px 0 5px 0;
+    padding: 0px 0px 0px 0px;
+}
+
+section#record .info form input.button {
+   	height: 32px;
+	margin: 5px 0;
+	background: #1F8532 url(../images/btn-bg.png);
+    border: 1px solid #066a19;
+    font-family: "MerriweatherBold", Georgia, Serif;
+    font-size: 14px;
+    color: #ffffff;
+    cursor: pointer;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+    width: auto;
+    
+    box-shadow: 0px 1px 1px rgba(0,0,0,0.4), inset 0 1px 0 #28a441;
+    -moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.4), inset 0 1px 0 #28a441;
+    -webkit-box-shadow: 0px 1px 1px rgba(0,0,0,0.4), inset 0 1px 0 #28a441;
+}
+
 /* -----------------------------------------
     Record_soundtrack list
 ------------------------------------------ */
