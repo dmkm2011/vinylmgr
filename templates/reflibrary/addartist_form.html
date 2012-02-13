@@ -1,0 +1,46 @@
+{% extends "reflibrary/addobj_form.html" %}
+{% block title %}Add an artist - {{block.super}}{% endblock %}
+{% block heading %}Add a new artist{% endblock %}
+{% block hint_line %}Input the information of the new artist in the form below.{% endblock %}
+{% block id_field_name %}artist_id{% endblock %}
+
+{% comment %}
+{% extends "base.html" %}
+
+{% block title %}Add an artist - {{block.super}}{% endblock %}
+
+{% block main_content %}
+<section id="auth" class="clearfix">
+    <h1>Add a new artist</h1>
+    <div class="primary">
+        <form action="" method="post">
+            <div>
+            {% if form.errors %}
+            <p id="error">Please try again.</p>
+            {% else %}
+            <p>Add a new artist to our reference database.</p>
+            {% endif %}
+            </div>
+            
+            {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field.errors }}
+                {{ field }}
+            </div>
+            {% endfor %}
+            
+            <div>
+            <input name="next" type="hidden" value="{{ next }}"/>
+            <input name="artist_id" type="hidden" value="{{ form.instance.id }}"/>
+            
+            <input name="saveAndEdit" type="submit" value="Save and continue editting" class="button"/>
+            <input name="saveAndAddMore" type="submit" value="Save and add another artist" class="button"/>
+            <input name="save" type="submit" value="Save" class="button"/>
+            <input name="cancel" type="submit" value="Cancel" class="button"/>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+{% endcomment %}

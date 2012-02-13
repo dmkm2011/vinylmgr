@@ -1,17 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Add a record - {{block.super}}{% endblock %}
-
 {% block main_content %}
 <section id="auth" class="clearfix">
-    <h1>Add a new record</h1>
+    <h1>{% block heading %}{% endblock %}</h1>
     <div class="primary">
         <form action="" method="post">
             <div>
             {% if form.errors %}
             <p id="error">Please try again.</p>
             {% else %}
-            <p>Add a new record to our reference database.</p>
+            <p>{% block hint_line %}{% endblock %}</p>
             {% endif %}
             </div>
             
@@ -24,16 +22,13 @@
             {% endfor %}
             
             <div>
-            <input type="submit" value="Add" class="button"/>
-            <input type="submit" value="Cancel" class="button"/>
-            </div>
+            <input name="next" type="hidden" value="{{ next }}"/>
+            <input name="{% block id_field_name %}{% endblock %}" type="hidden" value="{{ form.instance.id }}"/>
             
-            <div>
-            <p id="hint">
-                You might add <a href="{% url r_add_soundtrack request.path %}">a soundtrack</a> or 
-                <a href="{% url r_add_artist request.path %}">an artist</a>, 
-                then come back to this page and continue adding.
-            </p>
+            <input name="saveAndEdit" type="submit" value="Save and continue editting" class="button"/>
+            <input name="saveAndAddMore" type="submit" value="Save and add another artist" class="button"/>
+            <input name="save" type="submit" value="Save" class="button"/>
+            <input name="cancel" type="submit" value="Cancel" class="button"/>
             </div>
         </form>
     </div>

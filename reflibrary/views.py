@@ -1,9 +1,10 @@
 from django.utils.translation import ugettext as _
 from django.contrib.auth.views import *
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
-from reflibrary.models import Record, RecordFeaturing, SoundTrackFeaturing
-from reflibrary.forms import RecordCreationForm
+from django.forms.models import inlineformset_factory
+from reflibrary.models import *
+from reflibrary.forms import *
 
 def browse(request):
     """
@@ -65,5 +66,63 @@ def add_record(request, template_name='reflibrary/addrecord_form.html',
             return HttpResponseRedirect(post_redirect)
     else:
         form = add_form()
-    return render_to_response(template_name, {'form': form,}, 
+    return render_to_response(template_name, {'form': form}, 
                               context_instance=RequestContext(request))
+
+def add_obj(request, modelForm, model, template, id_field, next):
+    if request.method == "POST":
+        next = request.POST['next']
+        
+        if 'cancel' in request.POST:
+            return HttpResponseRedirect(next)
+
+        obj_id = request.POST[id_field]            
+        if obj_id == 'None':
+            # this artist is new
+            form = modelForm(request.POST)
+        else:
+            obj = get_object_or_404(model, id = obj_id)
+            form = modelForm(request.POST, instance = obj)
+        
+        if form.is_valid():
+            form.save()  
+            # if 'saveAndEdit' in request.POST:
+                # do nothing
+            if 'saveAndAddMore' in request.POST:
+                form = modelForm()
+            elif 'save' in request.POST:
+                return HttpResponseRedirect(next)
+    else:
+        form = modelForm()
+    return render_to_response(template,
+                            {'form': form, 'next': next}, 
+                              context_instance=RequestContext(request))
+                              
+@login_required
+def add_artist(request, next=None):
+    return add_obj(request, ArtistCreationForm, 
+        Artist, 'reflibrary/addartist_form.html', 'artist_id', next)
+                              
+@login_required
+def edit_artist(request, artist_id, next=None):
+    artist = get_object_or_404(Artist, id=artist_id)
+        
+    if request.method == 'POST':
+        next = request.POST['next']
+        form = ArtistCreationForm(data=request.POST, files=request.FILES, instance=artist)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(next)
+    else:
+        p_initial = {'name': artist.name,
+                  'homepage': artist.homepage,
+                  'bio': artist.bio}
+        form = ArtistCreationForm(initial=p_initial, instance=artist)
+    return render_to_response(template_name,
+                          { 'form': form},
+                          context_instance=RequestContext(request))
+                              
+@login_required
+def add_soundtrack(request, next=None):
+        return add_obj(request, SoundTrackCreationForm, 
+        SoundTrack, 'reflibrary/addsoundtrack_form.html', 'soundtrack_id', next)
